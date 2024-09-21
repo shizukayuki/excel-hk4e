@@ -1,15 +1,35 @@
 package excel
 
-var textMap map[TextMapHash]string
+import (
+	"fmt"
+	"strings"
+)
+
+var (
+	Languages = []string{"CHS", "CHT", "DE", "EN", "ES", "FR", "ID", "IT", "JP", "KR", "PT", "RU", "TH", "TR", "VI"}
+	textMap   = map[string]*map[TextMapHash]string{}
+)
 
 func init() {
-	load("TextMap/TextMapEN.json", &textMap)
+	for _, lang := range Languages {
+		var v map[TextMapHash]string
+		textMap[strings.ToLower(lang)] = &v
+		load(fmt.Sprintf("TextMap/TextMap%s.json", lang), &v)
+	}
 }
 
 type TextMapHash uint32
 
+func (h TextMapHash) Lang(lang string) string {
+	textMap := textMap[strings.ToLower(lang)]
+	if textMap != nil && *textMap != nil {
+		return (*textMap)[h]
+	}
+	return ""
+}
+
 func (h TextMapHash) String() string {
-	return textMap[h]
+	return h.Lang("en")
 }
 
 type CurveInfo struct {
