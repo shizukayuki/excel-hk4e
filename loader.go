@@ -2,10 +2,12 @@ package excel
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
 var resources = map[string]any{}
@@ -44,16 +46,32 @@ func LoadResources(cfg LoaderConfig) error {
 		langs[strings.ToLower(name)] = struct{}{}
 	}
 
-	for name, v := range resources {
+	errCh := make(chan error, len(resources))
+	loadFile := func(wg *sync.WaitGroup, name string, v any) {
+		defer wg.Done()
+
 		if s := strings.ToLower(name); strings.HasPrefix(s, "textmap") {
 			if _, ok := langs[s]; !ok {
-				continue
+				return
 			}
 		}
 
 		if err := cfg.readFile(name, v); err != nil {
-			return fmt.Errorf("failed to load %s: %w", name, err)
+			errCh <- fmt.Errorf("failed to load %s: %w", name, err)
 		}
 	}
-	return nil
+
+	var wg sync.WaitGroup
+	for name, v := range resources {
+		wg.Add(1)
+		go loadFile(&wg, name, v)
+	}
+	wg.Wait()
+	close(errCh)
+
+	var err error
+	for nerr := range errCh {
+		err = errors.Join(err, nerr)
+	}
+	return err
 }
