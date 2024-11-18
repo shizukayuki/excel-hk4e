@@ -7,14 +7,14 @@ import (
 
 var (
 	Languages = []string{"CHS", "CHT", "DE", "EN", "ES", "FR", "ID", "IT", "JP", "KR", "PT", "RU", "TH", "TR", "VI"}
-	textMap   = map[string]*map[TextMapHash]string{}
+	textMap   = make(map[string]map[TextMapHash]string)
 )
 
 func init() {
 	for _, lang := range Languages {
-		var v map[TextMapHash]string
-		textMap[strings.ToLower(lang)] = &v
-		load(fmt.Sprintf("TextMap/TextMap%s.json", lang), &v)
+		v := make(map[TextMapHash]string)
+		textMap[strings.ToLower(lang)] = v
+		load(fmt.Sprintf("TextMap/TextMap%s.json", lang), v)
 	}
 }
 
@@ -22,8 +22,8 @@ type TextMapHash uint32
 
 func (h TextMapHash) Lang(lang string) string {
 	textMap := textMap[strings.ToLower(lang)]
-	if textMap != nil && *textMap != nil {
-		return (*textMap)[h]
+	if textMap != nil {
+		return textMap[h]
 	}
 	return ""
 }
