@@ -41,6 +41,9 @@ func TestTextMapMerge(t *testing.T) {
 		"TextMap/TextMapJP_1.json": `{ "2": "2" }`,
 		"TextMap/TextMapJP_2.json": `{ "3": "3" }`,
 
+		"TextMap/TextMapKR_0.json": `{ "1": "1" }`,
+		"TextMap/TextMapKR_1.json": `{ "2": "2" }`,
+
 		"TextMap/TextMapTH_1.json": `{ "1": "1" }`,
 		"TextMap/TextMapTH_2.json": `{ "2": "2" }`,
 	}
@@ -55,13 +58,18 @@ func TestTextMapMerge(t *testing.T) {
 			2: "",
 			3: "",
 		},
+		"kr": {
+			1: "1",
+			2: "2",
+			3: "",
+		},
 		"th": {
 			1: "1",
 			2: "2",
 			3: "",
 		},
 	}
-	setup(t, []string{"en", "jp", "th"}, override)
+	setup(t, []string{"en", "jp", "kr", "th"}, override)
 
 	for lang, expected := range expected {
 		for h, v := range expected {

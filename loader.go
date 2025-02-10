@@ -89,9 +89,9 @@ func (cfg *LoaderConfig) fetchTextMap(wg *sync.WaitGroup, name string, v any, er
 	const ChunkMin = 2
 	var chunks int
 	var err error
-	for n := 0; n <= ChunkMin; n++ {
+	for n := -1; n <= ChunkMin; n++ {
 		pname := name
-		if n > 0 {
+		if n >= 0 {
 			dot := strings.Index(name, ".")
 			pname = fmt.Sprintf("%s_%v.%s", name[:dot], n, name[dot+1:])
 		}
@@ -101,20 +101,21 @@ func (cfg *LoaderConfig) fetchTextMap(wg *sync.WaitGroup, name string, v any, er
 			err = fmt.Errorf("failed to load %s: %w", pname, nerr)
 			if len(merged) > 0 {
 				err = nil
-			} else if n == 0 {
+			} else if n <= 0 {
 				continue
 			}
 			break
 		}
 
 		err = nil
-		chunks = n
 		for k, v := range part {
 			merged[k] = v
 		}
-		if n == 0 {
+
+		if n == -1 {
 			break
 		}
+		chunks++
 	}
 
 	if chunks != 0 && chunks < ChunkMin {
