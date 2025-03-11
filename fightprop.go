@@ -59,6 +59,8 @@ const (
 	FIGHT_PROP_MAX_WIND_ENERGY                            FightProp = 74
 	FIGHT_PROP_MAX_ICE_ENERGY                             FightProp = 75
 	FIGHT_PROP_MAX_ROCK_ENERGY                            FightProp = 76
+	FIGHT_PROP_MAX_SPECIAL_ENERGY                         FightProp = 77
+	FIGHT_PROP_START_SPECIAL_ENERGY                       FightProp = 78
 	FIGHT_PROP_SKILL_CD_MINUS_RATIO                       FightProp = 80
 	FIGHT_PROP_SHIELD_COST_MINUS_RATIO                    FightProp = 81
 	FIGHT_PROP_CUR_FIRE_ENERGY                            FightProp = 1000
@@ -68,6 +70,7 @@ const (
 	FIGHT_PROP_CUR_WIND_ENERGY                            FightProp = 1004
 	FIGHT_PROP_CUR_ICE_ENERGY                             FightProp = 1005
 	FIGHT_PROP_CUR_ROCK_ENERGY                            FightProp = 1006
+	FIGHT_PROP_CUR_SPECIAL_ENERGY                         FightProp = 1007
 	FIGHT_PROP_CUR_HP                                     FightProp = 1010
 	FIGHT_PROP_MAX_HP                                     FightProp = 2000
 	FIGHT_PROP_CUR_ATTACK                                 FightProp = 2001
@@ -75,6 +78,7 @@ const (
 	FIGHT_PROP_CUR_SPEED                                  FightProp = 2003
 	FIGHT_PROP_CUR_HP_DEBTS                               FightProp = 2004
 	FIGHT_PROP_CUR_HP_PAID_DEBTS                          FightProp = 2005
+	FIGHT_PROP_CUR_NATLAN_HP                              FightProp = 2006
 	FIGHT_PROP_NONEXTRA_ATTACK                            FightProp = 3000
 	FIGHT_PROP_NONEXTRA_DEFENSE                           FightProp = 3001
 	FIGHT_PROP_NONEXTRA_CRITICAL                          FightProp = 3002
