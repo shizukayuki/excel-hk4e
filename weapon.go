@@ -32,10 +32,14 @@ type Weapon struct {
 		InitValue float32
 		Type      string
 	}
+	AwakenIcon      string
 	WeaponPromoteId uint32
 	StoryId         uint32
 	Id              uint32
 	NameTextMapHash TextMapHash
+	DescTextMapHash TextMapHash
+	Icon            string
+	GadgetId        uint32
 }
 
 func (w *Weapon) Name() string {
