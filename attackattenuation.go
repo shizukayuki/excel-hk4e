@@ -15,10 +15,7 @@ type AttackAttenuation struct {
 }
 
 func FindAttackAttenuation(group string) *AttackAttenuation {
-	for _, v := range AttackAttenuationExcelConfigData {
-		if v.Group == group {
-			return v
-		}
-	}
-	return nil
+	return Find(AttackAttenuationExcelConfigData, func(v *AttackAttenuation) bool {
+		return v.Group == group
+	})
 }

@@ -2,6 +2,7 @@ package excel
 
 import (
 	"regexp"
+	"slices"
 	"strings"
 )
 
@@ -17,4 +18,21 @@ func Slug(s string) string {
 		words[i] = strings.ToUpper(w[:1]) + w[1:]
 	}
 	return strings.Join(words, "")
+}
+
+func Filter[S ~[]E, E any](s S, f func(E) bool) S {
+	var r S
+	for i := range s {
+		if f(s[i]) {
+			r = append(r, s[i])
+		}
+	}
+	return r
+}
+
+func Find[S ~[]E, E any](s S, f func(E) bool) E {
+	if i := slices.IndexFunc(s, f); i != -1 {
+		return s[i]
+	}
+	return *new(E)
 }

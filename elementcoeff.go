@@ -15,10 +15,7 @@ type ElementCoeff struct {
 }
 
 func FindElementCoeff(level uint32) *ElementCoeff {
-	for _, v := range ElementCoeffExcelConfigData {
-		if v.Level == level {
-			return v
-		}
-	}
-	return nil
+	return Find(ElementCoeffExcelConfigData, func(v *ElementCoeff) bool {
+		return v.Level == level
+	})
 }

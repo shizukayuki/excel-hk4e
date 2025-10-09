@@ -44,12 +44,13 @@ type CurveData struct {
 }
 
 func (c *CurveData) Type(typ string) (string, float32) {
-	for _, v := range c.CurveInfos {
-		if v.Type == typ {
-			return v.Arith, v.Value
-		}
+	ci := Find(c.CurveInfos, func(v *CurveInfo) bool {
+		return v.Type == typ
+	})
+	if ci == nil {
+		return "", 0
 	}
-	return "", 0
+	return ci.Arith, ci.Value
 }
 
 type PropGrowCurves struct {
@@ -63,11 +64,7 @@ type FightPropData struct {
 }
 
 func FindCurveData(list []*CurveData, level uint32) *CurveData {
-	for _, v := range list {
-		if v.Level != level {
-			continue
-		}
-		return v
-	}
-	return nil
+	return Find(list, func(v *CurveData) bool {
+		return v.Level == level
+	})
 }

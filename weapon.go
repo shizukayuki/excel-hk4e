@@ -47,12 +47,9 @@ func (w *Weapon) Name() string {
 }
 
 func (w *Weapon) Codex() *WeaponCodex {
-	for _, v := range WeaponCodexExcelConfigData {
-		if v.WeaponId == w.Id {
-			return v
-		}
-	}
-	return nil
+	return Find(WeaponCodexExcelConfigData, func(v *WeaponCodex) bool {
+		return v.WeaponId == w.Id
+	})
 }
 
 func (w *Weapon) Affix(level uint32) *EquipAffix {
@@ -67,12 +64,9 @@ func (w *Weapon) Curve(level uint32) *CurveData {
 }
 
 func (w *Weapon) Promote(level uint32) *WeaponPromote {
-	for _, v := range WeaponPromoteExcelConfigData {
-		if v.WeaponPromoteId == w.WeaponPromoteId && v.PromoteLevel == level {
-			return v
-		}
-	}
-	return nil
+	return Find(WeaponPromoteExcelConfigData, func(v *WeaponPromote) bool {
+		return v.WeaponPromoteId == w.WeaponPromoteId && v.PromoteLevel == level
+	})
 }
 
 type WeaponPromote struct {
@@ -83,10 +77,7 @@ type WeaponPromote struct {
 }
 
 func FindWeapon(id uint32) *Weapon {
-	for _, v := range WeaponExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(WeaponExcelConfigData, func(v *Weapon) bool {
+		return v.Id == id
+	})
 }

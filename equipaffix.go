@@ -21,10 +21,7 @@ func (e *EquipAffix) Name() string {
 }
 
 func FindEquipAffix(id, level uint32) *EquipAffix {
-	for _, v := range EquipAffixExcelConfigData {
-		if v.Id == id && v.Level == level {
-			return v
-		}
-	}
-	return nil
+	return Find(EquipAffixExcelConfigData, func(v *EquipAffix) bool {
+		return v.Id == id && v.Level == level
+	})
 }

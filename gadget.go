@@ -15,10 +15,7 @@ type Gadget struct {
 }
 
 func FindGadget(id uint32) *Gadget {
-	for _, v := range GadgetExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(GadgetExcelConfigData, func(v *Gadget) bool {
+		return v.Id == id
+	})
 }

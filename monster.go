@@ -64,19 +64,13 @@ func (m *Monster) Curve(level uint32) *CurveData {
 }
 
 func FindMonster(id uint32) *Monster {
-	for _, v := range MonsterExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(MonsterExcelConfigData, func(v *Monster) bool {
+		return v.Id == id
+	})
 }
 
 func FindMonsterDescribe(id uint32) *MonsterDescribe {
-	for _, v := range MonsterDescribeExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(MonsterDescribeExcelConfigData, func(v *MonsterDescribe) bool {
+		return v.Id == id
+	})
 }

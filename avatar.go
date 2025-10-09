@@ -56,12 +56,9 @@ func (a *Avatar) Name() string {
 }
 
 func (a *Avatar) Codex() *AvatarCodex {
-	for _, v := range AvatarCodexExcelConfigData {
-		if v.AvatarId == a.Id {
-			return v
-		}
-	}
-	return nil
+	return Find(AvatarCodexExcelConfigData, func(v *AvatarCodex) bool {
+		return v.AvatarId == a.Id
+	})
 }
 
 func (a *Avatar) SkillDepot() *AvatarSkillDepot {
@@ -73,12 +70,9 @@ func (a *Avatar) Curve(level uint32) *CurveData {
 }
 
 func (a *Avatar) Promote(level uint32) *AvatarPromote {
-	for _, v := range AvatarPromoteExcelConfigData {
-		if v.AvatarPromoteId == a.AvatarPromoteId && v.PromoteLevel == level {
-			return v
-		}
-	}
-	return nil
+	return Find(AvatarPromoteExcelConfigData, func(v *AvatarPromote) bool {
+		return v.AvatarPromoteId == a.AvatarPromoteId && v.PromoteLevel == level
+	})
 }
 
 type AvatarPromote struct {
@@ -122,12 +116,9 @@ func (a *AvatarSkill) Name() string {
 }
 
 func (a *AvatarSkill) ProudSkill(level uint32) *ProudSkill {
-	for _, v := range ProudSkillExcelConfigData {
-		if v.ProudSkillGroupId == a.ProudSkillGroupId && v.Level == level {
-			return v
-		}
-	}
-	return nil
+	return Find(ProudSkillExcelConfigData, func(v *ProudSkill) bool {
+		return v.ProudSkillGroupId == a.ProudSkillGroupId && v.Level == level
+	})
 }
 
 type ProudSkill struct {
@@ -142,28 +133,19 @@ type ProudSkill struct {
 }
 
 func FindAvatar(id uint32) *Avatar {
-	for _, v := range AvatarExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(AvatarExcelConfigData, func(v *Avatar) bool {
+		return v.Id == id
+	})
 }
 
 func FindSkillDepot(id uint32) *AvatarSkillDepot {
-	for _, v := range AvatarSkillDepotExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(AvatarSkillDepotExcelConfigData, func(v *AvatarSkillDepot) bool {
+		return v.Id == id
+	})
 }
 
 func FindSkill(id uint32) *AvatarSkill {
-	for _, v := range AvatarSkillExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(AvatarSkillExcelConfigData, func(v *AvatarSkill) bool {
+		return v.Id == id
+	})
 }

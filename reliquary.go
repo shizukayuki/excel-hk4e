@@ -1,6 +1,9 @@
 package excel
 
-import "sort"
+import (
+	"cmp"
+	"slices"
+)
 
 var (
 	ReliquaryAffixExcelConfigData    []*ReliquaryAffix
@@ -38,14 +41,11 @@ func (r *ReliquaryAffix) Max() *ReliquaryAffix {
 }
 
 func (r *ReliquaryAffix) Rolls() []*ReliquaryAffix {
-	var rolls []*ReliquaryAffix
-	for _, v := range ReliquaryAffixExcelConfigData {
-		if v.DepotId == r.DepotId && v.PropType == r.PropType {
-			rolls = append(rolls, v)
-		}
-	}
-	sort.Slice(rolls, func(i, j int) bool { return rolls[i].PropValue < rolls[j].PropValue })
-	return rolls
+	s := Filter(ReliquaryAffixExcelConfigData, func(v *ReliquaryAffix) bool {
+		return v.DepotId == r.DepotId && v.PropType == r.PropType
+	})
+	slices.SortFunc(s, func(a, b *ReliquaryAffix) int { return cmp.Compare(a.PropValue, b.PropValue) })
+	return s
 }
 
 type ReliquaryCodex struct {
@@ -101,12 +101,9 @@ func (r *Reliquary) Name() string {
 }
 
 func (r *Reliquary) Codex() *ReliquaryCodex {
-	for _, v := range ReliquaryCodexExcelConfigData {
-		if v.equipType(r.EquipType) == r.Id {
-			return v
-		}
-	}
-	return nil
+	return Find(ReliquaryCodexExcelConfigData, func(v *ReliquaryCodex) bool {
+		return v.equipType(r.EquipType) == r.Id
+	})
 }
 
 func (r *Reliquary) Set() *ReliquarySet {
@@ -114,45 +111,37 @@ func (r *Reliquary) Set() *ReliquarySet {
 }
 
 func (r *Reliquary) Level(level uint32) *ReliquaryLevel {
-	for _, v := range ReliquaryLevelExcelConfigData {
-		if v.Rank == r.RankLevel && v.Level == level {
-			return v
-		}
-	}
-	return nil
+	return Find(ReliquaryLevelExcelConfigData, func(v *ReliquaryLevel) bool {
+		return v.Rank == r.RankLevel && v.Level == level
+	})
 }
 
 func (r *Reliquary) MainProp(id uint32) *ReliquaryMainProp {
-	for _, v := range ReliquaryMainPropExcelConfigData {
-		if v.PropDepotId == r.MainPropDepotId && v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(ReliquaryMainPropExcelConfigData, func(v *ReliquaryMainProp) bool {
+		return v.PropDepotId == r.MainPropDepotId && v.Id == id
+	})
 }
 
 func (r *Reliquary) AppendProp(id uint32) *ReliquaryAffix {
-	for _, v := range ReliquaryAffixExcelConfigData {
-		if v.DepotId == r.AppendPropDepotId && v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(ReliquaryAffixExcelConfigData, func(v *ReliquaryAffix) bool {
+		return v.DepotId == r.AppendPropDepotId && v.Id == id
+	})
 }
 
 type ReliquaryLevel struct {
 	Rank     uint32
 	Level    uint32
-	AddProps []FightPropData
+	AddProps []*FightPropData
 }
 
 func (r *ReliquaryLevel) Stat(prop FightProp) float32 {
-	for _, v := range r.AddProps {
-		if v.PropType == prop {
-			return v.Value
-		}
+	p := Find(r.AddProps, func(v *FightPropData) bool {
+		return v.PropType == prop
+	})
+	if p == nil {
+		return 0
 	}
-	return 0
+	return p.Value
 }
 
 type ReliquaryMainProp struct {
@@ -168,12 +157,9 @@ type ReliquarySet struct {
 }
 
 func (r *ReliquarySet) Codex(level uint32) *ReliquaryCodex {
-	for _, v := range ReliquaryCodexExcelConfigData {
-		if v.SuitId == r.SetId && v.Level == level {
-			return v
-		}
-	}
-	return nil
+	return Find(ReliquaryCodexExcelConfigData, func(v *ReliquaryCodex) bool {
+		return v.SuitId == r.SetId && v.Level == level
+	})
 }
 
 func (r *ReliquarySet) Affix(level uint32) *EquipAffix {
@@ -181,19 +167,13 @@ func (r *ReliquarySet) Affix(level uint32) *EquipAffix {
 }
 
 func FindReliquary(id uint32) *Reliquary {
-	for _, v := range ReliquaryExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(ReliquaryExcelConfigData, func(v *Reliquary) bool {
+		return v.Id == id
+	})
 }
 
 func FindReliquarySet(id uint32) *ReliquarySet {
-	for _, v := range ReliquarySetExcelConfigData {
-		if v.SetId == id {
-			return v
-		}
-	}
-	return nil
+	return Find(ReliquarySetExcelConfigData, func(v *ReliquarySet) bool {
+		return v.SetId == id
+	})
 }

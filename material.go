@@ -16,10 +16,7 @@ func (m *Material) Name() string {
 }
 
 func FindMaterial(id uint32) *Material {
-	for _, v := range MaterialExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(MaterialExcelConfigData, func(v *Material) bool {
+		return v.Id == id
+	})
 }

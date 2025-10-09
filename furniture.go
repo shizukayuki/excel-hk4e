@@ -16,10 +16,7 @@ func (f *HomeWorldFurniture) Name() string {
 }
 
 func FindHomeWorldFurniture(id uint32) *HomeWorldFurniture {
-	for _, v := range HomeWorldFurnitureExcelConfigData {
-		if v.Id == id {
-			return v
-		}
-	}
-	return nil
+	return Find(HomeWorldFurnitureExcelConfigData, func(v *HomeWorldFurniture) bool {
+		return v.Id == id
+	})
 }
