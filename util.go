@@ -20,6 +20,10 @@ func Slug(s string) string {
 	return strings.Join(words, "")
 }
 
+func SlugLower(s string) string {
+	return strings.ToLower(Slug(s))
+}
+
 func Filter[S ~[]E, E any](s S, f func(E) bool) S {
 	var r S
 	for i := range s {

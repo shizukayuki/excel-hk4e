@@ -1,7 +1,7 @@
 package excel
 
 var (
-	MonsterCurveExcelConfigData    []*CurveData
+	MonsterCurveExcelConfigData    []*Curve
 	MonsterDescribeExcelConfigData []*MonsterDescribe
 	MonsterExcelConfigData         []*Monster
 )
@@ -24,16 +24,14 @@ func (m *MonsterDescribe) Name() string {
 	return m.NameTextMapHash.String()
 }
 
+type MonsterDrop struct {
+	DropId    uint32
+	HpPercent float32
+}
+
 type Monster struct {
-	MonsterName string
-	Type        string
-	HpDrops     []struct {
-		DropId    uint32
-		HpPercent float32
-	}
-	KillDropId        uint32
-	FeatureTagGroupId uint32
-	DescribeId        uint32
+	Id                uint32
+	CampId            uint32
 	HpBase            float32
 	AttackBase        float32
 	DefenseBase       float32
@@ -44,22 +42,23 @@ type Monster struct {
 	WindSubHurt       float32
 	IceSubHurt        float32
 	RockSubHurt       float32
+	PropGrowCurves    []*FightPropGrow
 	PhysicalSubHurt   float32
-	PropGrowCurves    []PropGrowCurves
-	Id                uint32
-	CampId            uint32
-}
-
-type HpDrop struct {
-	DropId    uint32
-	HpPercent float32
+	MonsterName       string
+	Type              string // MonsterType
+	Affix             []uint32
+	Equips            []uint32
+	HpDrops           []*MonsterDrop
+	KillDropId        uint32
+	FeatureTagGroupId uint32
+	DescribeId        uint32
 }
 
 func (m *Monster) Describe() *MonsterDescribe {
 	return FindMonsterDescribe(m.DescribeId)
 }
 
-func (m *Monster) Curve(level uint32) *CurveData {
+func (m *Monster) Curve(level uint32) *Curve {
 	return FindCurveData(MonsterCurveExcelConfigData, level)
 }
 

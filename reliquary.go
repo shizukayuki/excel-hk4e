@@ -85,19 +85,21 @@ func (r *ReliquaryCodex) equipType(typ EquipType) uint32 {
 }
 
 type Reliquary struct {
-	EquipType         EquipType
-	RankLevel         uint32
-	MainPropDepotId   uint32
-	AppendPropDepotId uint32
-	AppendPropNum     uint32
-	SetId             uint32
-	MaxLevel          uint32
-	Id                uint32
-	NameTextMapHash   TextMapHash
-}
-
-func (r *Reliquary) Name() string {
-	return r.NameTextMapHash.String()
+	Item
+	EquipType                  EquipType
+	RankLevel                  uint32
+	MainPropDepotId            uint32
+	AppendPropDepotId          uint32
+	AppendPropNum              uint32
+	SetId                      uint32
+	AddPropLevels              []uint32
+	BaseConvExp                uint32
+	MaxLevel                   uint32
+	StoryId                    uint32
+	DestroyRule                string // MaterialDestroyType
+	DestroyReturnMaterial      []uint32
+	DestroyReturnMaterialCount []uint32
+	InitialLockState           uint32
 }
 
 func (r *Reliquary) Codex() *ReliquaryCodex {
@@ -131,11 +133,12 @@ func (r *Reliquary) AppendProp(id uint32) *ReliquaryAffix {
 type ReliquaryLevel struct {
 	Rank     uint32
 	Level    uint32
-	AddProps []*FightPropData
+	Exp      uint32
+	AddProps []*PropValue
 }
 
 func (r *ReliquaryLevel) Stat(prop FightProp) float32 {
-	p := Find(r.AddProps, func(v *FightPropData) bool {
+	p := Find(r.AddProps, func(v *PropValue) bool {
 		return v.PropType == prop
 	})
 	if p == nil {
@@ -148,12 +151,19 @@ type ReliquaryMainProp struct {
 	Id          uint32
 	PropDepotId uint32
 	PropType    FightProp
+	AffixName   string // ReliquaryMainAffixName
 }
 
 type ReliquarySet struct {
-	SetId        uint32
-	SetNeedNum   []uint32
-	EquipAffixId uint32
+	SetId         uint32
+	SetIcon       string
+	SetNeedNum    []uint32
+	EquipAffixId  uint32
+	DisableFilter uint32
+	ContainsList  []uint32
+	BagSortValue  uint32
+	DungeonGroup  []uint32
+	TextList      []uint32
 }
 
 func (r *ReliquarySet) Codex(level uint32) *ReliquaryCodex {

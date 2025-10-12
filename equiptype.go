@@ -1,6 +1,6 @@
 package excel
 
-//go:generate enumer --json --type=EquipType $GOFILE
+//go:generate enumer --text --json --type=EquipType $GOFILE
 type EquipType uint32
 
 const (

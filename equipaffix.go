@@ -7,13 +7,12 @@ func init() {
 }
 
 type EquipAffix struct {
+	BaseTalent
 	AffixId         uint32
 	Id              uint32
 	Level           uint32
-	OpenConfig      string
 	NameTextMapHash TextMapHash
-	AddProps        []FightPropData
-	ParamList       []float32
+	DescTextMapHash TextMapHash
 }
 
 func (e *EquipAffix) Name() string {

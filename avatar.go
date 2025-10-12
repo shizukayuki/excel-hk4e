@@ -2,11 +2,12 @@ package excel
 
 var (
 	AvatarCodexExcelConfigData      []*AvatarCodex
-	AvatarCurveExcelConfigData      []*CurveData
+	AvatarCurveExcelConfigData      []*Curve
 	AvatarExcelConfigData           []*Avatar
 	AvatarPromoteExcelConfigData    []*AvatarPromote
 	AvatarSkillDepotExcelConfigData []*AvatarSkillDepot
 	AvatarSkillExcelConfigData      []*AvatarSkill
+	AvatarTalentExcelConfigData     []*AvatarTalent
 	ProudSkillExcelConfigData       []*ProudSkill
 )
 
@@ -17,6 +18,7 @@ func init() {
 	load("ExcelBinOutput/AvatarPromoteExcelConfigData.json", &AvatarPromoteExcelConfigData)
 	load("ExcelBinOutput/AvatarSkillDepotExcelConfigData.json", &AvatarSkillDepotExcelConfigData)
 	load("ExcelBinOutput/AvatarSkillExcelConfigData.json", &AvatarSkillExcelConfigData)
+	load("ExcelBinOutput/AvatarTalentExcelConfigData.json", &AvatarTalentExcelConfigData)
 	load("ExcelBinOutput/ProudSkillExcelConfigData.json", &ProudSkillExcelConfigData)
 }
 
@@ -29,26 +31,31 @@ func (a *AvatarCodex) Avatar() *Avatar {
 }
 
 type Avatar struct {
-	UseType             string
-	BodyType            string
-	IconName            string
-	SideIconName        string
-	QualityType         string
-	ChargeEfficiency    float32
-	WeaponType          string
-	ImageName           string
-	SkillDepotId        uint32
-	StaminaRecoverSpeed float32
-	CandSkillDepotIds   []uint32
-	AvatarPromoteId     uint32
+	Id                  uint32
+	NameTextMapHash     TextMapHash
 	HpBase              float32
 	AttackBase          float32
 	DefenseBase         float32
 	Critical            float32
 	CriticalHurt        float32
-	PropGrowCurves      []PropGrowCurves
-	Id                  uint32
-	NameTextMapHash     TextMapHash
+	PropGrowCurves      []*FightPropGrow
+	UseType             string // AvatarUseType
+	BodyType            string // BodyType
+	IconName            string
+	SideIconName        string
+	QualityType         string // QualityType
+	ChargeEfficiency    float32
+	IsRangeAttack       bool
+	WeaponType          WeaponType
+	ImageName           string
+	SkillDepotId        uint32
+	StaminaRecoverSpeed float32
+	CandSkillDepotIds   []uint32
+	DescTextMapHash     TextMapHash
+	AvatarIdentityType  string // AvatarIdentityType
+	AvatarPromoteId     uint32
+	FeatureTagGroupId   uint32
+	InfoDescTextMapHash TextMapHash
 }
 
 func (a *Avatar) Name() string {
@@ -65,7 +72,7 @@ func (a *Avatar) SkillDepot() *AvatarSkillDepot {
 	return FindSkillDepot(a.SkillDepotId)
 }
 
-func (a *Avatar) Curve(level uint32) *CurveData {
+func (a *Avatar) Curve(level uint32) *Curve {
 	return FindCurveData(AvatarCurveExcelConfigData, level)
 }
 
@@ -75,11 +82,25 @@ func (a *Avatar) Promote(level uint32) *AvatarPromote {
 	})
 }
 
+func (a *Avatar) FetterInfo() *FetterInfo {
+	return Find(FetterInfoExcelConfigData, func(v *FetterInfo) bool {
+		return v.AvatarId == a.Id
+	})
+}
+
 type AvatarPromote struct {
-	AvatarPromoteId uint32
-	PromoteLevel    uint32
-	UnlockMaxLevel  uint32
-	AddProps        []FightPropData
+	AvatarPromoteId     uint32
+	PromoteLevel        uint32
+	ScoinCost           uint32
+	CostItems           []*IdCount
+	UnlockMaxLevel      uint32
+	AddProps            []*PropValue
+	RequiredPlayerLevel uint32
+}
+
+type ProudSkillOpen struct {
+	ProudSkillGroupId      uint32
+	NeedAvatarPromoteLevel uint32
 }
 
 type AvatarSkillDepot struct {
@@ -90,10 +111,9 @@ type AvatarSkillDepot struct {
 	AttackModeSkill         uint32
 	Talents                 []uint32
 	TalentStarName          string
-	InherentProudSkillOpens []struct {
-		ProudSkillGroupId      uint32
-		NeedAvatarPromoteLevel uint32
-	}
+	InherentProudSkillOpens []*ProudSkillOpen
+	SkillDepotAbilityGroup  string
+	ArkheType               string `json:"__exp_arkheType"` // custom field
 }
 
 type AvatarSkill struct {
@@ -102,11 +122,14 @@ type AvatarSkill struct {
 	AbilityName        string
 	DescTextMapHash    TextMapHash
 	SkillIcon          string
+	IsRanged           bool
 	CDTime             float32
 	IgnoreCDMinusRatio bool
+	CostStamina        float32
 	CostElemType       ElementType
 	CostElemVal        float32
 	MaxChargeNum       int
+	TriggerID          int
 	ProudSkillGroupId  uint32
 	CDSlot             uint32
 }
@@ -121,15 +144,38 @@ func (a *AvatarSkill) ProudSkill(level uint32) *ProudSkill {
 	})
 }
 
+type AvatarTalent struct {
+	BaseTalent
+	TalentId          uint32
+	NameTextMapHash   TextMapHash
+	DescTextMapHash   TextMapHash
+	Icon              string
+	PrevTalent        uint32
+	MainCostItemId    uint32
+	MainCostItemCount uint32
+}
+
+func (a *AvatarTalent) Name() string {
+	return a.NameTextMapHash.String()
+}
+
 type ProudSkill struct {
+	BaseTalent
+	ProudSkillId      uint32
 	ProudSkillGroupId uint32
 	Level             uint32
 	ProudSkillType    uint32
+	NameTextMapHash   TextMapHash
+	DescTextMapHash   TextMapHash
 	Icon              string
+	CoinCost          uint32
+	CostItems         []*IdCount
 	Breaklevel        uint32
 	ParamDescList     []TextMapHash
-	OpenConfig        string
-	ParamList         []float32
+}
+
+func (a *ProudSkill) Name() string {
+	return a.NameTextMapHash.String()
 }
 
 func FindAvatar(id uint32) *Avatar {

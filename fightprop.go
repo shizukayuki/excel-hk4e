@@ -1,6 +1,6 @@
 package excel
 
-//go:generate enumer --json --type=FightProp $GOFILE
+//go:generate enumer --text --json --type=FightProp $GOFILE
 type FightProp uint32
 
 const (
@@ -104,6 +104,8 @@ const (
 	FIGHT_PROP_NONEXTRA_SKILL_CD_MINUS_RATIO              FightProp = 3022
 	FIGHT_PROP_NONEXTRA_SHIELD_COST_MINUS_RATIO           FightProp = 3023
 	FIGHT_PROP_NONEXTRA_PHYSICAL_ADD_HURT                 FightProp = 3024
+	FIGHT_PROP_BASE_ELEM_REACT_CRITICAL                   FightProp = 3045
+	FIGHT_PROP_BASE_ELEM_REACT_CRITICAL_HURT              FightProp = 3046
 	FIGHT_PROP_ELEM_REACT_CRITICAL                        FightProp = 3025
 	FIGHT_PROP_ELEM_REACT_CRITICAL_HURT                   FightProp = 3026
 	FIGHT_PROP_ELEM_REACT_EXPLODE_CRITICAL                FightProp = 3027
@@ -124,6 +126,4 @@ const (
 	FIGHT_PROP_ELEM_REACT_OVERGROW_FIRE_CRITICAL_HURT     FightProp = 3042
 	FIGHT_PROP_ELEM_REACT_OVERGROW_ELECTRIC_CRITICAL      FightProp = 3043
 	FIGHT_PROP_ELEM_REACT_OVERGROW_ELECTRIC_CRITICAL_HURT FightProp = 3044
-	FIGHT_PROP_BASE_ELEM_REACT_CRITICAL                   FightProp = 3045
-	FIGHT_PROP_BASE_ELEM_REACT_CRITICAL_HURT              FightProp = 3046
 )

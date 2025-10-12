@@ -8,6 +8,8 @@ import (
 var (
 	Languages = []string{"CHS", "CHT", "DE", "EN", "ES", "FR", "ID", "IT", "JP", "KR", "PT", "RU", "TH", "TR", "VI"}
 	textMap   = make(map[string]map[TextMapHash]string)
+
+	ManualTextMapConfigData []*ManualTextMap
 )
 
 func init() {
@@ -16,6 +18,7 @@ func init() {
 		textMap[strings.ToLower(lang)] = v
 		load(fmt.Sprintf("TextMap/TextMap%s.json", lang), v)
 	}
+	load("ExcelBinOutput/ManualTextMapConfigData.json", &ManualTextMapConfigData)
 }
 
 type TextMapHash uint32
@@ -32,39 +35,18 @@ func (h TextMapHash) String() string {
 	return h.Lang("en")
 }
 
-type CurveInfo struct {
-	Type  string
-	Arith string
-	Value float32
+type ManualTextMap struct {
+	TextMapId                 string
+	TextMapContentTextMapHash TextMapHash
+	ParamTypes                []string
 }
 
-type CurveData struct {
-	Level      uint32
-	CurveInfos []*CurveInfo
+func (m *ManualTextMap) Name() string {
+	return m.TextMapContentTextMapHash.String()
 }
 
-func (c *CurveData) Type(typ string) (string, float32) {
-	ci := Find(c.CurveInfos, func(v *CurveInfo) bool {
-		return v.Type == typ
-	})
-	if ci == nil {
-		return "", 0
-	}
-	return ci.Arith, ci.Value
-}
-
-type PropGrowCurves struct {
-	Type      FightProp
-	GrowCurve string
-}
-
-type FightPropData struct {
-	PropType FightProp
-	Value    float32
-}
-
-func FindCurveData(list []*CurveData, level uint32) *CurveData {
-	return Find(list, func(v *CurveData) bool {
-		return v.Level == level
+func FindManualTextMap(id string) *ManualTextMap {
+	return Find(ManualTextMapConfigData, func(v *ManualTextMap) bool {
+		return v.TextMapId == id
 	})
 }

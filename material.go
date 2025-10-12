@@ -7,12 +7,12 @@ func init() {
 }
 
 type Material struct {
-	Id              uint32
-	NameTextMapHash TextMapHash
-}
-
-func (m *Material) Name() string {
-	return m.NameTextMapHash.String()
+	Item
+	MaterialType string // MaterialType
+	StackLimit   uint32
+	MaxUseCount  uint32
+	RankLevel    uint32
+	FoodQuality  string // FoodQualityType
 }
 
 func FindMaterial(id uint32) *Material {

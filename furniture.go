@@ -7,12 +7,9 @@ func init() {
 }
 
 type HomeWorldFurniture struct {
-	Id              uint32
-	NameTextMapHash TextMapHash
-}
-
-func (f *HomeWorldFurniture) Name() string {
-	return f.NameTextMapHash.String()
+	Item
+	SurfaceType string // FurnitureDeploySurfaceType
+	RankLevel   uint32
 }
 
 func FindHomeWorldFurniture(id uint32) *HomeWorldFurniture {

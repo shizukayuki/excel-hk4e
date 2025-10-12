@@ -2,7 +2,7 @@ package excel
 
 var (
 	WeaponCodexExcelConfigData   []*WeaponCodex
-	WeaponCurveExcelConfigData   []*CurveData
+	WeaponCurveExcelConfigData   []*Curve
 	WeaponExcelConfigData        []*Weapon
 	WeaponPromoteExcelConfigData []*WeaponPromote
 )
@@ -15,35 +15,37 @@ func init() {
 }
 
 type WeaponCodex struct {
-	WeaponId uint32
-	IsDisuse bool
+	WeaponId         uint32
+	IsDisuse         bool
+	ShowOnlyUnlocked bool
 }
 
 func (w *WeaponCodex) Weapon() *Weapon {
 	return FindWeapon(w.WeaponId)
 }
 
-type Weapon struct {
-	WeaponType string
-	RankLevel  uint32
-	SkillAffix []uint32
-	WeaponProp []struct {
-		PropType  FightProp
-		InitValue float32
-		Type      string
-	}
-	AwakenIcon      string
-	WeaponPromoteId uint32
-	StoryId         uint32
-	Id              uint32
-	NameTextMapHash TextMapHash
-	DescTextMapHash TextMapHash
-	Icon            string
-	GadgetId        uint32
+type WeaponProperty struct {
+	PropType  FightProp
+	InitValue float32
+	Type      GrowCurveType
 }
 
-func (w *Weapon) Name() string {
-	return w.NameTextMapHash.String()
+type Weapon struct {
+	Item
+	WeaponType                 WeaponType
+	RankLevel                  uint32
+	SkillAffix                 []uint32
+	AwakenMaterial             uint32
+	WeaponProp                 []*WeaponProperty
+	AwakenIcon                 string
+	WeaponPromoteId            uint32
+	StoryId                    uint32
+	AwakenCosts                []uint32
+	EnhanceRule                uint32
+	DestroyRule                string // MaterialDestroyType
+	DestroyReturnMaterial      []uint32
+	DestroyReturnMaterialCount []uint32
+	InitialLockState           uint32
 }
 
 func (w *Weapon) Codex() *WeaponCodex {
@@ -59,7 +61,7 @@ func (w *Weapon) Affix(level uint32) *EquipAffix {
 	return FindEquipAffix(w.SkillAffix[0], level)
 }
 
-func (w *Weapon) Curve(level uint32) *CurveData {
+func (w *Weapon) Curve(level uint32) *Curve {
 	return FindCurveData(WeaponCurveExcelConfigData, level)
 }
 
@@ -70,10 +72,13 @@ func (w *Weapon) Promote(level uint32) *WeaponPromote {
 }
 
 type WeaponPromote struct {
-	WeaponPromoteId uint32
-	PromoteLevel    uint32
-	AddProps        []FightPropData
-	UnlockMaxLevel  uint32
+	WeaponPromoteId     uint32
+	PromoteLevel        uint32
+	CostItems           []*IdCount
+	CoinCost            uint32
+	AddProps            []*PropValue
+	UnlockMaxLevel      uint32
+	RequiredPlayerLevel uint32
 }
 
 func FindWeapon(id uint32) *Weapon {

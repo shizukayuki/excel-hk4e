@@ -1,0 +1,74 @@
+package excel
+
+//go:generate enumer --text --json --type=GrowCurveType $GOFILE
+type GrowCurveType uint32
+
+const (
+	GROW_CURVE_NONE               GrowCurveType = 0
+	GROW_CURVE_HP                 GrowCurveType = 1
+	GROW_CURVE_ATTACK             GrowCurveType = 2
+	GROW_CURVE_STAMINA            GrowCurveType = 3
+	GROW_CURVE_STRIKE             GrowCurveType = 4
+	GROW_CURVE_ANTI_STRIKE        GrowCurveType = 5
+	GROW_CURVE_ANTI_STRIKE1       GrowCurveType = 6
+	GROW_CURVE_ANTI_STRIKE2       GrowCurveType = 7
+	GROW_CURVE_ANTI_STRIKE3       GrowCurveType = 8
+	GROW_CURVE_STRIKE_HURT        GrowCurveType = 9
+	GROW_CURVE_ELEMENT            GrowCurveType = 10
+	GROW_CURVE_KILL_EXP           GrowCurveType = 11
+	GROW_CURVE_DEFENSE            GrowCurveType = 12
+	GROW_CURVE_ATTACK_BOMB        GrowCurveType = 13
+	GROW_CURVE_HP_LITTLEMONSTER   GrowCurveType = 14
+	GROW_CURVE_ELEMENT_MASTERY    GrowCurveType = 15
+	GROW_CURVE_PROGRESSION        GrowCurveType = 16
+	GROW_CURVE_DEFENDING          GrowCurveType = 17
+	GROW_CURVE_MHP                GrowCurveType = 18
+	GROW_CURVE_MATK               GrowCurveType = 19
+	GROW_CURVE_TOWERATK           GrowCurveType = 20
+	GROW_CURVE_HP_S5              GrowCurveType = 21
+	GROW_CURVE_HP_S4              GrowCurveType = 22
+	GROW_CURVE_HP_2               GrowCurveType = 23
+	GROW_CURVE_ATTACK_2           GrowCurveType = 24
+	GROW_CURVE_HP_ENVIRONMENT     GrowCurveType = 25
+	GROW_CURVE_ATTACK_S5          GrowCurveType = 31
+	GROW_CURVE_ATTACK_S4          GrowCurveType = 32
+	GROW_CURVE_ATTACK_S3          GrowCurveType = 33
+	GROW_CURVE_STRIKE_S5          GrowCurveType = 34
+	GROW_CURVE_DEFENSE_S5         GrowCurveType = 41
+	GROW_CURVE_DEFENSE_S4         GrowCurveType = 42
+	GROW_CURVE_ATTACK_101         GrowCurveType = 1101
+	GROW_CURVE_ATTACK_102         GrowCurveType = 1102
+	GROW_CURVE_ATTACK_103         GrowCurveType = 1103
+	GROW_CURVE_ATTACK_104         GrowCurveType = 1104
+	GROW_CURVE_ATTACK_105         GrowCurveType = 1105
+	GROW_CURVE_ATTACK_201         GrowCurveType = 1201
+	GROW_CURVE_ATTACK_202         GrowCurveType = 1202
+	GROW_CURVE_ATTACK_203         GrowCurveType = 1203
+	GROW_CURVE_ATTACK_204         GrowCurveType = 1204
+	GROW_CURVE_ATTACK_205         GrowCurveType = 1205
+	GROW_CURVE_ATTACK_301         GrowCurveType = 1301
+	GROW_CURVE_ATTACK_302         GrowCurveType = 1302
+	GROW_CURVE_ATTACK_303         GrowCurveType = 1303
+	GROW_CURVE_ATTACK_304         GrowCurveType = 1304
+	GROW_CURVE_ATTACK_305         GrowCurveType = 1305
+	GROW_CURVE_CRITICAL_101       GrowCurveType = 2101
+	GROW_CURVE_CRITICAL_102       GrowCurveType = 2102
+	GROW_CURVE_CRITICAL_103       GrowCurveType = 2103
+	GROW_CURVE_CRITICAL_104       GrowCurveType = 2104
+	GROW_CURVE_CRITICAL_105       GrowCurveType = 2105
+	GROW_CURVE_CRITICAL_201       GrowCurveType = 2201
+	GROW_CURVE_CRITICAL_202       GrowCurveType = 2202
+	GROW_CURVE_CRITICAL_203       GrowCurveType = 2203
+	GROW_CURVE_CRITICAL_204       GrowCurveType = 2204
+	GROW_CURVE_CRITICAL_205       GrowCurveType = 2205
+	GROW_CURVE_CRITICAL_301       GrowCurveType = 2301
+	GROW_CURVE_CRITICAL_302       GrowCurveType = 2302
+	GROW_CURVE_CRITICAL_303       GrowCurveType = 2303
+	GROW_CURVE_CRITICAL_304       GrowCurveType = 2304
+	GROW_CURVE_CRITICAL_305       GrowCurveType = 2305
+	GROW_CURVE_ACTIVITY_ATTACK_1  GrowCurveType = 5201
+	GROW_CURVE_ACTIVITY_HP_1      GrowCurveType = 5202
+	GROW_CURVE_ACTIVITY_ATTACK_2  GrowCurveType = 5701
+	GROW_CURVE_ACTIVITY_HP_2      GrowCurveType = 5702
+	GROW_CURVE_ACTIVITY_DEFENSE_2 GrowCurveType = 570
+)

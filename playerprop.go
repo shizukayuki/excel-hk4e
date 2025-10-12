@@ -1,6 +1,6 @@
 package excel
 
-//go:generate enumer --json --type=PlayerProp $GOFILE
+//go:generate enumer --text --json --type=PlayerProp $GOFILE
 type PlayerProp uint32
 
 const (

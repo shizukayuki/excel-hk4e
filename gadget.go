@@ -7,11 +7,12 @@ func init() {
 }
 
 type Gadget struct {
-	Type                    string
-	JSONName                string
-	InteractNameTextMapHash TextMapHash
 	Id                      uint32
+	NameTextMapHash         TextMapHash
 	CampId                  uint32
+	Type                    string // EntityType
+	JsonName                string
+	InteractNameTextMapHash TextMapHash
 }
 
 func FindGadget(id uint32) *Gadget {
