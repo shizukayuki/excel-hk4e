@@ -26,24 +26,24 @@ func (m *MonsterDescribe) Name() string {
 
 type MonsterDrop struct {
 	DropId    uint32
-	HpPercent float32
+	HpPercent float64
 }
 
 type Monster struct {
 	Id                uint32
 	CampId            uint32
-	HpBase            float32
-	AttackBase        float32
-	DefenseBase       float32
-	FireSubHurt       float32
-	GrassSubHurt      float32
-	WaterSubHurt      float32
-	ElecSubHurt       float32
-	WindSubHurt       float32
-	IceSubHurt        float32
-	RockSubHurt       float32
+	HpBase            float64
+	AttackBase        float64
+	DefenseBase       float64
+	FireSubHurt       float64
+	GrassSubHurt      float64
+	WaterSubHurt      float64
+	ElecSubHurt       float64
+	WindSubHurt       float64
+	IceSubHurt        float64
+	RockSubHurt       float64
 	PropGrowCurves    []*FightPropGrow
-	PhysicalSubHurt   float32
+	PhysicalSubHurt   float64
 	MonsterName       string
 	Type              string // MonsterType
 	Affix             []uint32

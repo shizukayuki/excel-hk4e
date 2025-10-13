@@ -8,10 +8,10 @@ func init() {
 
 type ElementCoeff struct {
 	Level                uint32
-	CrashCo              float32
-	ElementLevelCo       float32
-	PlayerElementLevelCo float32
-	PlayerShieldLevelCo  float32
+	CrashCo              float64
+	ElementLevelCo       float64
+	PlayerElementLevelCo float64
+	PlayerShieldLevelCo  float64
 }
 
 func FindElementCoeff(level uint32) *ElementCoeff {

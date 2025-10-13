@@ -26,7 +26,7 @@ func (w *WeaponCodex) Weapon() *Weapon {
 
 type WeaponProperty struct {
 	PropType  FightProp
-	InitValue float32
+	InitValue float64
 	Type      GrowCurveType
 }
 

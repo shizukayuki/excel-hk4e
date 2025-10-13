@@ -8,10 +8,10 @@ func init() {
 
 type AttackAttenuation struct {
 	Group              string
-	ResetCycle         float32
-	DurabilitySequence []float32
-	EnbreakSequence    []float32
-	DamageSequence     []float32
+	ResetCycle         float64
+	DurabilitySequence []float64
+	EnbreakSequence    []float64
+	DamageSequence     []float64
 }
 
 func FindAttackAttenuation(group string) *AttackAttenuation {

@@ -33,23 +33,23 @@ func (a *AvatarCodex) Avatar() *Avatar {
 type Avatar struct {
 	Id                  uint32
 	NameTextMapHash     TextMapHash
-	HpBase              float32
-	AttackBase          float32
-	DefenseBase         float32
-	Critical            float32
-	CriticalHurt        float32
+	HpBase              float64
+	AttackBase          float64
+	DefenseBase         float64
+	Critical            float64
+	CriticalHurt        float64
 	PropGrowCurves      []*FightPropGrow
 	UseType             string // AvatarUseType
 	BodyType            string // BodyType
 	IconName            string
 	SideIconName        string
 	QualityType         string // QualityType
-	ChargeEfficiency    float32
+	ChargeEfficiency    float64
 	IsRangeAttack       bool
 	WeaponType          WeaponType
 	ImageName           string
 	SkillDepotId        uint32
-	StaminaRecoverSpeed float32
+	StaminaRecoverSpeed float64
 	CandSkillDepotIds   []uint32
 	DescTextMapHash     TextMapHash
 	AvatarIdentityType  string // AvatarIdentityType
@@ -123,11 +123,11 @@ type AvatarSkill struct {
 	DescTextMapHash    TextMapHash
 	SkillIcon          string
 	IsRanged           bool
-	CDTime             float32
+	CDTime             float64
 	IgnoreCDMinusRatio bool
-	CostStamina        float32
+	CostStamina        float64
 	CostElemType       ElementType
-	CostElemVal        float32
+	CostElemVal        float64
 	MaxChargeNum       int
 	TriggerID          int
 	ProudSkillGroupId  uint32

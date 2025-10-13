@@ -7,13 +7,13 @@ type IdCount struct {
 
 type PropValue struct {
 	PropType FightProp
-	Value    float32
+	Value    float64
 }
 
 type BaseTalent struct {
 	OpenConfig string
 	AddProps   []*PropValue
-	ParamList  []float32
+	ParamList  []float64
 }
 
 type Item struct {
@@ -37,7 +37,7 @@ func (i *Item) Name() string {
 type GrowCurveInfo struct {
 	Type  GrowCurveType
 	Arith string // ArithType
-	Value float32
+	Value float64
 }
 
 type Curve struct {
@@ -45,7 +45,7 @@ type Curve struct {
 	CurveInfos []*GrowCurveInfo
 }
 
-func (c *Curve) Type(typ GrowCurveType) (string, float32) {
+func (c *Curve) Type(typ GrowCurveType) (string, float64) {
 	ci := Find(c.CurveInfos, func(v *GrowCurveInfo) bool {
 		return v.Type == typ
 	})

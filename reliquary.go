@@ -28,7 +28,7 @@ type ReliquaryAffix struct {
 	DepotId   uint32
 	GroupId   uint32
 	PropType  FightProp
-	PropValue float32
+	PropValue float64
 }
 
 func (r *ReliquaryAffix) Min() *ReliquaryAffix {
@@ -137,7 +137,7 @@ type ReliquaryLevel struct {
 	AddProps []*PropValue
 }
 
-func (r *ReliquaryLevel) Stat(prop FightProp) float32 {
+func (r *ReliquaryLevel) Stat(prop FightProp) float64 {
 	p := Find(r.AddProps, func(v *PropValue) bool {
 		return v.PropType == prop
 	})
