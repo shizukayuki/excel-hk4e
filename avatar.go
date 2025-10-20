@@ -131,9 +131,7 @@ func (a *AvatarSkill) Name() string {
 }
 
 func (a *AvatarSkill) ProudSkill(level uint32) *ProudSkill {
-	return Find(ProudSkillExcelConfigData, func(v *ProudSkill) bool {
-		return v.ProudSkillGroupId == a.ProudSkillGroupId && v.Level == level
-	})
+	return FindProudSkill(a.ProudSkillGroupId, level)
 }
 
 type AvatarTalent struct {
@@ -149,6 +147,10 @@ type AvatarTalent struct {
 
 func (a *AvatarTalent) Name() string {
 	return a.NameTextMapHash.String()
+}
+
+func (a *AvatarTalent) Prev() *AvatarTalent {
+	return FindTalent(a.PrevTalent)
 }
 
 type ProudSkill struct {
@@ -185,5 +187,17 @@ func FindSkillDepot(id uint32) *AvatarSkillDepot {
 func FindSkill(id uint32) *AvatarSkill {
 	return Find(AvatarSkillExcelConfigData, func(v *AvatarSkill) bool {
 		return v.Id == id
+	})
+}
+
+func FindProudSkill(id, level uint32) *ProudSkill {
+	return Find(ProudSkillExcelConfigData, func(v *ProudSkill) bool {
+		return v.ProudSkillGroupId == id && v.Level == level
+	})
+}
+
+func FindTalent(id uint32) *AvatarTalent {
+	return Find(AvatarTalentExcelConfigData, func(v *AvatarTalent) bool {
+		return v.TalentId == id
 	})
 }
