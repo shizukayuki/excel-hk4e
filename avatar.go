@@ -121,6 +121,9 @@ type AvatarSkill struct {
 	TriggerID          int
 	ProudSkillGroupId  uint32
 	CDSlot             uint32
+	SpecialEnergyMax   uint32
+	SpecialEnergyMin   uint32
+	SpecialEnergyType  string
 }
 
 func (a *AvatarSkill) Name() string {
