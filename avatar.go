@@ -31,14 +31,7 @@ func (a *AvatarCodex) Avatar() *Avatar {
 }
 
 type Avatar struct {
-	Id                  uint32
-	NameTextMapHash     TextMapHash
-	HpBase              float64
-	AttackBase          float64
-	DefenseBase         float64
-	Critical            float64
-	CriticalHurt        float64
-	PropGrowCurves      []*FightPropGrow
+	Creature
 	UseType             string // AvatarUseType
 	BodyType            string // BodyType
 	IconName            string
@@ -56,10 +49,6 @@ type Avatar struct {
 	AvatarPromoteId     uint32
 	FeatureTagGroupId   uint32
 	InfoDescTextMapHash TextMapHash
-}
-
-func (a *Avatar) Name() string {
-	return a.NameTextMapHash.String()
 }
 
 func (a *Avatar) Codex() *AvatarCodex {

@@ -30,20 +30,7 @@ type MonsterDrop struct {
 }
 
 type Monster struct {
-	Id                uint32
-	CampId            uint32
-	HpBase            float64
-	AttackBase        float64
-	DefenseBase       float64
-	FireSubHurt       float64
-	GrassSubHurt      float64
-	WaterSubHurt      float64
-	ElecSubHurt       float64
-	WindSubHurt       float64
-	IceSubHurt        float64
-	RockSubHurt       float64
-	PropGrowCurves    []*FightPropGrow
-	PhysicalSubHurt   float64
+	Creature
 	MonsterName       string
 	Type              string // MonsterType
 	Affix             []uint32

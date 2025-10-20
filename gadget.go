@@ -7,9 +7,7 @@ func init() {
 }
 
 type Gadget struct {
-	Id                      uint32
-	NameTextMapHash         TextMapHash
-	CampId                  uint32
+	Entity
 	Type                    string // EntityType
 	JsonName                string
 	InteractNameTextMapHash TextMapHash
