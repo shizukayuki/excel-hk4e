@@ -46,4 +46,5 @@ const (
 	ReactionPhlogistonSolidificationEnd ReactionType = 39
 	ReactionMoonShock                   ReactionType = 40
 	ReactionMoonOvergrow                ReactionType = 41
+	ReactionMoonCrystallizeWater        ReactionType = 42
 )
