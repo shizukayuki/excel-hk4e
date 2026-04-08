@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -78,7 +79,7 @@ func (cfg *LoaderConfig) fetchTextMap(wg *sync.WaitGroup, name string, v any, er
 	var lang string
 	for _, v := range cfg.Languages {
 		if strings.EqualFold(fmt.Sprintf("TextMap/TextMap%s.json", v), name) {
-			lang = v
+			lang = strings.ToUpper(v)
 			break
 		}
 	}
@@ -86,40 +87,53 @@ func (cfg *LoaderConfig) fetchTextMap(wg *sync.WaitGroup, name string, v any, er
 		return
 	}
 
-	const ChunkMin = 2
-	var chunks int
-	var err error
-	for n := -1; n <= ChunkMin; n++ {
-		pname := name
-		if n >= 0 {
-			dot := strings.Index(name, ".")
-			pname = fmt.Sprintf("%s_%v.%s", name[:dot], n, name[dot+1:])
-		}
-
-		var part map[TextMapHash]string
-		if nerr := cfg.readFile(pname, &part); nerr != nil {
-			err = fmt.Errorf("failed to load %s: %w", pname, nerr)
-			if len(merged) > 0 {
-				err = nil
-			} else if n <= 0 {
-				continue
+	merge := func(prefix string) error {
+		const ChunkMin = 2
+		var basename string
+		var chunks int
+		var err error
+		var found bool
+		for n := -1; n <= ChunkMin; n++ {
+			pname := fmt.Sprintf("%v%v", prefix, lang)
+			if n >= 0 {
+				pname += fmt.Sprintf("_%v", n)
 			}
-			break
-		}
+			pname = path.Join(path.Dir(name), pname+path.Ext(name))
+			if n == -1 {
+				basename = pname
+			}
 
-		err = nil
-		for k, v := range part {
-			merged[k] = v
-		}
+			var part map[TextMapHash]string
+			if nerr := cfg.readFile(pname, &part); nerr != nil {
+				err = fmt.Errorf("failed to load %s: %w", pname, nerr)
+				if found {
+					err = nil
+				} else if n <= 0 {
+					continue
+				}
+				break
+			}
 
-		if n == -1 {
-			break
+			err = nil
+			found = true
+			for k, v := range part {
+				merged[k] = v
+			}
+
+			if n == -1 {
+				break
+			}
+			chunks++
 		}
-		chunks++
+		if chunks != 0 && chunks < ChunkMin {
+			err = fmt.Errorf("failed to load %s: missing %v chunks out of %v", basename, ChunkMin-chunks, ChunkMin)
+		}
+		return err
 	}
 
-	if chunks != 0 && chunks < ChunkMin {
-		err = fmt.Errorf("failed to load %s: missing %v chunks out of %v", name, ChunkMin-chunks, ChunkMin)
+	if err := merge("TextMap"); err != nil {
+		errCh <- err
+		return
 	}
-	errCh <- err
+	_ = merge("TextMap_Medium")
 }
