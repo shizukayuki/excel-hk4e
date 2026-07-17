@@ -7,6 +7,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"slices"
 	"strings"
 	"sync"
 )
@@ -17,6 +18,7 @@ type LoaderConfig struct {
 	Root      string
 	ReadFile  func(root, name string) ([]byte, error)
 	Languages []string
+	Wants     []any
 }
 
 func (cfg *LoaderConfig) readFile(name string, v any) error {
@@ -43,7 +45,6 @@ func load(name string, v any) {
 func LoadResources(cfg LoaderConfig) error {
 	errCh := make(chan error, len(resources))
 	var wg sync.WaitGroup
-	wg.Add(len(resources))
 	for name, v := range resources {
 		var f func(wg *sync.WaitGroup, name string, v any, err chan error)
 		switch {
@@ -51,7 +52,11 @@ func LoadResources(cfg LoaderConfig) error {
 			f = cfg.fetchTextMap
 		default:
 			f = cfg.fetchExcel
+			if len(cfg.Wants) > 0 && !slices.Contains(cfg.Wants, v) {
+				continue
+			}
 		}
+		wg.Add(1)
 		go f(&wg, name, v, errCh)
 	}
 	wg.Wait()
