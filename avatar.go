@@ -8,6 +8,7 @@ var (
 	AvatarSkillDepotExcelConfigData []*AvatarSkillDepot
 	AvatarSkillExcelConfigData      []*AvatarSkill
 	AvatarTalentExcelConfigData     []*AvatarTalent
+	HyperLinkNameExcelConfigData    []*HyperLinkName
 	ProudSkillExcelConfigData       []*ProudSkill
 )
 
@@ -19,6 +20,7 @@ func init() {
 	load("ExcelBinOutput/AvatarSkillDepotExcelConfigData.json", &AvatarSkillDepotExcelConfigData)
 	load("ExcelBinOutput/AvatarSkillExcelConfigData.json", &AvatarSkillExcelConfigData)
 	load("ExcelBinOutput/AvatarTalentExcelConfigData.json", &AvatarTalentExcelConfigData)
+	load("ExcelBinOutput/HyperLinkNameExcelConifgData.json", &HyperLinkNameExcelConfigData)
 	load("ExcelBinOutput/ProudSkillExcelConfigData.json", &ProudSkillExcelConfigData)
 }
 
@@ -178,6 +180,18 @@ func (a *ProudSkill) FindSkill() *AvatarSkill {
 	})
 }
 
+type HyperLinkName struct {
+	Id              uint32
+	NameTextMapHash TextMapHash
+	DescTextMapHash TextMapHash
+	DescParamList   []string
+	Color           string
+}
+
+func (h *HyperLinkName) Name() string {
+	return h.NameTextMapHash.String()
+}
+
 func FindAvatar(id uint32) *Avatar {
 	return Find(AvatarExcelConfigData, func(v *Avatar) bool {
 		return v.Id == id
@@ -205,5 +219,11 @@ func FindProudSkill(id, level uint32) *ProudSkill {
 func FindTalent(id uint32) *AvatarTalent {
 	return Find(AvatarTalentExcelConfigData, func(v *AvatarTalent) bool {
 		return v.TalentId == id
+	})
+}
+
+func FindHyperLink(id uint32) *HyperLinkName {
+	return Find(HyperLinkNameExcelConfigData, func(v *HyperLinkName) bool {
+		return v.Id == id
 	})
 }
