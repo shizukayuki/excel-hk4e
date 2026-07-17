@@ -73,6 +73,10 @@ func (a *Avatar) Promote(level uint32) *AvatarPromote {
 	})
 }
 
+func (a *Avatar) FeatureTag() *FeatureTagGroup {
+	return FindFeatureTag(a.FeatureTagGroupId)
+}
+
 func (a *Avatar) FetterInfo() *FetterInfo {
 	return Find(FetterInfoExcelConfigData, func(v *FetterInfo) bool {
 		return v.AvatarId == a.Id
