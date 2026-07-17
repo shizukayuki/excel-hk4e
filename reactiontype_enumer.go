@@ -8,11 +8,11 @@ import (
 	"strings"
 )
 
-const _ReactionTypeName = "NoneExplodeStreamBurningBurnedWetOvergrowMeltFreezeAntiFireRockSlowDownShockWindElectricFireSuperconductorSwirlFireSwirlWaterSwirlElectricSwirlIceSwirlFireAccuSwirlWaterAccuSwirlElectricAccuSwirlIceAccuStickRockStickWaterCrystallizeFireCrystallizeWaterCrystallizeElectricCrystallizeIceFrozenBrokenStickGrassOverdoseOverdoseElectricOverdoseGrassOvergrowMushroomFireOvergrowMushroomElectricPhlogistonSolidificationPhlogistonSolidificationEndMoonShockMoonOvergrowMoonCrystallizeWater"
+const _ReactionTypeName = "NoneExplodeStreamBurningBurnedWetOvergrowMeltFreezeAntiFireRockSlowDownShockWindElectricFireSuperconductorSwirlFireSwirlWaterSwirlElectricSwirlIceSwirlFireAccuSwirlWaterAccuSwirlElectricAccuSwirlIceAccuStickRockStickWaterCrystallizeFireCrystallizeWaterCrystallizeElectricCrystallizeIceFrozenBrokenStickGrassOverdoseOverdoseElectricOverdoseGrassOvergrowMushroomFireOvergrowMushroomElectricPhlogistonSolidificationPhlogistonSolidificationEndMoonShockMoonOvergrowMoonCrystallizeWaterStarSuperconductorStarSuperconductorElectricStarSuperconductorIce"
 
-var _ReactionTypeIndex = [...]uint16{0, 4, 11, 17, 24, 30, 33, 41, 45, 51, 59, 63, 71, 76, 80, 88, 92, 106, 115, 125, 138, 146, 159, 173, 190, 202, 211, 221, 236, 252, 271, 285, 297, 307, 315, 331, 344, 364, 388, 412, 439, 448, 460, 480}
+var _ReactionTypeIndex = [...]uint16{0, 4, 11, 17, 24, 30, 33, 41, 45, 51, 59, 63, 71, 76, 80, 88, 92, 106, 115, 125, 138, 146, 159, 173, 190, 202, 211, 221, 236, 252, 271, 285, 297, 307, 315, 331, 344, 364, 388, 412, 439, 448, 460, 480, 498, 524, 545}
 
-const _ReactionTypeLowerName = "noneexplodestreamburningburnedwetovergrowmeltfreezeantifirerockslowdownshockwindelectricfiresuperconductorswirlfireswirlwaterswirlelectricswirliceswirlfireaccuswirlwateraccuswirlelectricaccuswirliceaccustickrockstickwatercrystallizefirecrystallizewatercrystallizeelectriccrystallizeicefrozenbrokenstickgrassoverdoseoverdoseelectricoverdosegrassovergrowmushroomfireovergrowmushroomelectricphlogistonsolidificationphlogistonsolidificationendmoonshockmoonovergrowmooncrystallizewater"
+const _ReactionTypeLowerName = "noneexplodestreamburningburnedwetovergrowmeltfreezeantifirerockslowdownshockwindelectricfiresuperconductorswirlfireswirlwaterswirlelectricswirliceswirlfireaccuswirlwateraccuswirlelectricaccuswirliceaccustickrockstickwatercrystallizefirecrystallizewatercrystallizeelectriccrystallizeicefrozenbrokenstickgrassoverdoseoverdoseelectricoverdosegrassovergrowmushroomfireovergrowmushroomelectricphlogistonsolidificationphlogistonsolidificationendmoonshockmoonovergrowmooncrystallizewaterstarsuperconductorstarsuperconductorelectricstarsuperconductorice"
 
 func (i ReactionType) String() string {
 	if i >= ReactionType(len(_ReactionTypeIndex)-1) {
@@ -68,9 +68,12 @@ func _ReactionTypeNoOp() {
 	_ = x[ReactionMoonShock-(40)]
 	_ = x[ReactionMoonOvergrow-(41)]
 	_ = x[ReactionMoonCrystallizeWater-(42)]
+	_ = x[ReactionStarSuperconductor-(43)]
+	_ = x[ReactionStarSuperconductorElectric-(44)]
+	_ = x[ReactionStarSuperconductorIce-(45)]
 }
 
-var _ReactionTypeValues = []ReactionType{ReactionNone, ReactionExplode, ReactionStream, ReactionBurning, ReactionBurned, ReactionWet, ReactionOvergrow, ReactionMelt, ReactionFreeze, ReactionAntiFire, ReactionRock, ReactionSlowDown, ReactionShock, ReactionWind, ReactionElectric, ReactionFire, ReactionSuperconductor, ReactionSwirlFire, ReactionSwirlWater, ReactionSwirlElectric, ReactionSwirlIce, ReactionSwirlFireAccu, ReactionSwirlWaterAccu, ReactionSwirlElectricAccu, ReactionSwirlIceAccu, ReactionStickRock, ReactionStickWater, ReactionCrystallizeFire, ReactionCrystallizeWater, ReactionCrystallizeElectric, ReactionCrystallizeIce, ReactionFrozenBroken, ReactionStickGrass, ReactionOverdose, ReactionOverdoseElectric, ReactionOverdoseGrass, ReactionOvergrowMushroomFire, ReactionOvergrowMushroomElectric, ReactionPhlogistonSolidification, ReactionPhlogistonSolidificationEnd, ReactionMoonShock, ReactionMoonOvergrow, ReactionMoonCrystallizeWater}
+var _ReactionTypeValues = []ReactionType{ReactionNone, ReactionExplode, ReactionStream, ReactionBurning, ReactionBurned, ReactionWet, ReactionOvergrow, ReactionMelt, ReactionFreeze, ReactionAntiFire, ReactionRock, ReactionSlowDown, ReactionShock, ReactionWind, ReactionElectric, ReactionFire, ReactionSuperconductor, ReactionSwirlFire, ReactionSwirlWater, ReactionSwirlElectric, ReactionSwirlIce, ReactionSwirlFireAccu, ReactionSwirlWaterAccu, ReactionSwirlElectricAccu, ReactionSwirlIceAccu, ReactionStickRock, ReactionStickWater, ReactionCrystallizeFire, ReactionCrystallizeWater, ReactionCrystallizeElectric, ReactionCrystallizeIce, ReactionFrozenBroken, ReactionStickGrass, ReactionOverdose, ReactionOverdoseElectric, ReactionOverdoseGrass, ReactionOvergrowMushroomFire, ReactionOvergrowMushroomElectric, ReactionPhlogistonSolidification, ReactionPhlogistonSolidificationEnd, ReactionMoonShock, ReactionMoonOvergrow, ReactionMoonCrystallizeWater, ReactionStarSuperconductor, ReactionStarSuperconductorElectric, ReactionStarSuperconductorIce}
 
 var _ReactionTypeNameToValueMap = map[string]ReactionType{
 	_ReactionTypeName[0:4]:          ReactionNone,
@@ -159,6 +162,12 @@ var _ReactionTypeNameToValueMap = map[string]ReactionType{
 	_ReactionTypeLowerName[448:460]: ReactionMoonOvergrow,
 	_ReactionTypeName[460:480]:      ReactionMoonCrystallizeWater,
 	_ReactionTypeLowerName[460:480]: ReactionMoonCrystallizeWater,
+	_ReactionTypeName[480:498]:      ReactionStarSuperconductor,
+	_ReactionTypeLowerName[480:498]: ReactionStarSuperconductor,
+	_ReactionTypeName[498:524]:      ReactionStarSuperconductorElectric,
+	_ReactionTypeLowerName[498:524]: ReactionStarSuperconductorElectric,
+	_ReactionTypeName[524:545]:      ReactionStarSuperconductorIce,
+	_ReactionTypeLowerName[524:545]: ReactionStarSuperconductorIce,
 }
 
 var _ReactionTypeNames = []string{
@@ -205,6 +214,9 @@ var _ReactionTypeNames = []string{
 	_ReactionTypeName[439:448],
 	_ReactionTypeName[448:460],
 	_ReactionTypeName[460:480],
+	_ReactionTypeName[480:498],
+	_ReactionTypeName[498:524],
+	_ReactionTypeName[524:545],
 }
 
 // ReactionTypeString retrieves an enum value from the enum constants string name.

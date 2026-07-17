@@ -4,11 +4,11 @@ package excel
 type EquipType uint32
 
 const (
-	EQUIP_NONE EquipType = iota
-	EQUIP_BRACER
-	EQUIP_NECKLACE
-	EQUIP_SHOES
-	EQUIP_RING
-	EQUIP_DRESS
-	EQUIP_WEAPON
+	EQUIP_NONE     EquipType = 0
+	EQUIP_BRACER   EquipType = 1
+	EQUIP_NECKLACE EquipType = 2
+	EQUIP_SHOES    EquipType = 3
+	EQUIP_RING     EquipType = 4
+	EQUIP_DRESS    EquipType = 5
+	EQUIP_WEAPON   EquipType = 6
 )
