@@ -45,6 +45,10 @@ func (m *ManualTextMap) Name() string {
 	return m.TextMapContentTextMapHash.String()
 }
 
+func (m *ManualTextMap) Lang(lang string) string {
+	return m.TextMapContentTextMapHash.Lang(lang)
+}
+
 func FindManualTextMap(id string) *ManualTextMap {
 	return Find(ManualTextMapConfigData, func(v *ManualTextMap) bool {
 		return v.TextMapId == id
