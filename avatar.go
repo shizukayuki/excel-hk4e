@@ -172,6 +172,12 @@ func (a *ProudSkill) Name() string {
 	return a.NameTextMapHash.String()
 }
 
+func (a *ProudSkill) FindSkill() *AvatarSkill {
+	return Find(AvatarSkillExcelConfigData, func(v *AvatarSkill) bool {
+		return v.ProudSkillGroupId == a.ProudSkillGroupId
+	})
+}
+
 func FindAvatar(id uint32) *Avatar {
 	return Find(AvatarExcelConfigData, func(v *Avatar) bool {
 		return v.Id == id
