@@ -51,6 +51,7 @@ type Avatar struct {
 	AvatarPromoteId     uint32
 	FeatureTagGroupId   uint32
 	InfoDescTextMapHash TextMapHash
+	Tags                []string
 }
 
 func (a *Avatar) Codex() *AvatarCodex {
@@ -96,6 +97,7 @@ type AvatarPromote struct {
 type ProudSkillOpen struct {
 	ProudSkillGroupId      uint32
 	NeedAvatarPromoteLevel uint32
+	CondType               string // custom field
 }
 
 type AvatarSkillDepot struct {
@@ -107,29 +109,31 @@ type AvatarSkillDepot struct {
 	Talents                 []uint32
 	TalentStarName          string
 	InherentProudSkillOpens []*ProudSkillOpen
+	SpecialProudSkillOpens  []*ProudSkillOpen // custom field
 	SkillDepotAbilityGroup  string
-	ArkheType               string `json:"__exp_arkheType"` // custom field
+	ArkheType               string // custom field
 }
 
 type AvatarSkill struct {
-	Id                 uint32
-	NameTextMapHash    TextMapHash
-	AbilityName        string
-	DescTextMapHash    TextMapHash
-	SkillIcon          string
-	IsRanged           bool
-	CDTime             float64
-	IgnoreCDMinusRatio bool
-	CostStamina        float64
-	CostElemType       ElementType
-	CostElemVal        float64
-	MaxChargeNum       int
-	TriggerID          int
-	ProudSkillGroupId  uint32
-	CDSlot             uint32
-	SpecialEnergyMax   uint32
-	SpecialEnergyMin   uint32
-	SpecialEnergyType  string
+	Id                      uint32
+	NameTextMapHash         TextMapHash
+	AbilityName             string
+	DescTextMapHash         TextMapHash
+	UpgradedDescTextMapHash TextMapHash // custom field
+	SkillIcon               string
+	IsRanged                bool
+	CDTime                  float64
+	IgnoreCDMinusRatio      bool
+	CostStamina             float64
+	CostElemType            ElementType
+	CostElemVal             float64
+	MaxChargeNum            int
+	TriggerID               int
+	ProudSkillGroupId       uint32
+	CDSlot                  uint32
+	SpecialEnergyMax        uint32
+	SpecialEnergyMin        uint32
+	SpecialEnergyType       string
 }
 
 func (a *AvatarSkill) Name() string {
@@ -142,13 +146,14 @@ func (a *AvatarSkill) ProudSkill(level uint32) *ProudSkill {
 
 type AvatarTalent struct {
 	BaseTalent
-	TalentId          uint32
-	NameTextMapHash   TextMapHash
-	DescTextMapHash   TextMapHash
-	Icon              string
-	PrevTalent        uint32
-	MainCostItemId    uint32
-	MainCostItemCount uint32
+	TalentId                uint32
+	NameTextMapHash         TextMapHash
+	DescTextMapHash         TextMapHash
+	UpgradedDescTextMapHash TextMapHash // custom field
+	Icon                    string
+	PrevTalent              uint32
+	MainCostItemId          uint32
+	MainCostItemCount       uint32
 }
 
 func (a *AvatarTalent) Name() string {
@@ -161,17 +166,18 @@ func (a *AvatarTalent) Prev() *AvatarTalent {
 
 type ProudSkill struct {
 	BaseTalent
-	ProudSkillId      uint32
-	ProudSkillGroupId uint32
-	Level             uint32
-	ProudSkillType    uint32
-	NameTextMapHash   TextMapHash
-	DescTextMapHash   TextMapHash
-	Icon              string
-	CoinCost          uint32
-	CostItems         []*IdCount
-	Breaklevel        uint32
-	ParamDescList     []TextMapHash
+	ProudSkillId            uint32
+	ProudSkillGroupId       uint32
+	Level                   uint32
+	ProudSkillType          uint32
+	NameTextMapHash         TextMapHash
+	DescTextMapHash         TextMapHash
+	UpgradedDescTextMapHash TextMapHash // custom field
+	Icon                    string
+	CoinCost                uint32
+	CostItems               []*IdCount
+	Breaklevel              uint32
+	ParamDescList           []TextMapHash
 }
 
 func (a *ProudSkill) Name() string {
