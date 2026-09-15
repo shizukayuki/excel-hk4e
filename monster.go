@@ -39,6 +39,7 @@ type Monster struct {
 	KillDropId        uint32
 	FeatureTagGroupId uint32
 	DescribeId        uint32
+	LodPatternName    string
 }
 
 func (m *Monster) Describe() *MonsterDescribe {
