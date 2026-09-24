@@ -131,8 +131,8 @@ type AvatarSkill struct {
 	TriggerID               int
 	ProudSkillGroupId       uint32
 	CDSlot                  uint32
-	SpecialEnergyMax        uint32
-	SpecialEnergyMin        uint32
+	SpecialEnergyMax        float64
+	SpecialEnergyMin        float64
 	SpecialEnergyType       string
 }
 
