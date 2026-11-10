@@ -48,5 +48,9 @@ const (
 	ReactionMoonOvergrow                ReactionType = 41
 	ReactionMoonCrystallizeWater        ReactionType = 42
 	ReactionStarSuperconductor          ReactionType = 43
+	ReactionStarSuperconductorElectric  ReactionType = 44
+	ReactionStarSuperconductorIce       ReactionType = 45
+	ReactionBrokenIce                   ReactionType = 46
 	ReactionStarSwirlIce                ReactionType = 47
+	ReactionStarSwirlWind               ReactionType = 48
 )

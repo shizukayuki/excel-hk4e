@@ -21,4 +21,5 @@ const (
 	ElementLiquidPhlogiston   ElementType = 14
 	ElementSolidPhlogiston    ElementType = 15
 	ElementSolidifyPhlogiston ElementType = 16
+	ElementBrokenIce          ElementType = 17
 )

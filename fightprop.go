@@ -63,6 +63,9 @@ const (
 	FIGHT_PROP_START_SPECIAL_ENERGY                       FightProp = 78
 	FIGHT_PROP_SKILL_CD_MINUS_RATIO                       FightProp = 80
 	FIGHT_PROP_SHIELD_COST_MINUS_RATIO                    FightProp = 81
+	FIGHT_PROP_BASE_ENMITY_MULTIPLIER                     FightProp = 90
+	FIGHT_PROP_ENMITY_MULTIPLIER_PERCENT                  FightProp = 91
+	FIGHT_PROP_ENMITY_MULTIPLIER                          FightProp = 92
 	FIGHT_PROP_CUR_FIRE_ENERGY                            FightProp = 1000
 	FIGHT_PROP_CUR_ELEC_ENERGY                            FightProp = 1001
 	FIGHT_PROP_CUR_WATER_ENERGY                           FightProp = 1002
@@ -79,6 +82,7 @@ const (
 	FIGHT_PROP_CUR_HP_DEBTS                               FightProp = 2004
 	FIGHT_PROP_CUR_HP_PAID_DEBTS                          FightProp = 2005
 	FIGHT_PROP_CUR_NATLAN_HP                              FightProp = 2006
+	FIGHT_PROP_CUR_ENMITY_MULTIPLIER                      FightProp = 2020
 	FIGHT_PROP_NONEXTRA_ATTACK                            FightProp = 3000
 	FIGHT_PROP_NONEXTRA_DEFENSE                           FightProp = 3001
 	FIGHT_PROP_NONEXTRA_CRITICAL                          FightProp = 3002

@@ -8,11 +8,11 @@ import (
 	"strings"
 )
 
-const _ItemTypeName = "ITEM_NONEITEM_VIRTUALITEM_MATERIALITEM_RELIQUARYITEM_WEAPONITEM_DISPLAYITEM_FURNITURE"
+const _ItemTypeName = "ITEM_NONEITEM_VIRTUALITEM_MATERIALITEM_RELIQUARYITEM_WEAPONITEM_DISPLAYITEM_FURNITUREITEM_BEYOND_MATERIALITEM_BEYOND_HALL_FACILITYITEM_TPS_WEAPON"
 
-var _ItemTypeIndex = [...]uint8{0, 9, 21, 34, 48, 59, 71, 85}
+var _ItemTypeIndex = [...]uint8{0, 9, 21, 34, 48, 59, 71, 85, 105, 130, 145}
 
-const _ItemTypeLowerName = "item_noneitem_virtualitem_materialitem_reliquaryitem_weaponitem_displayitem_furniture"
+const _ItemTypeLowerName = "item_noneitem_virtualitem_materialitem_reliquaryitem_weaponitem_displayitem_furnitureitem_beyond_materialitem_beyond_hall_facilityitem_tps_weapon"
 
 func (i ItemType) String() string {
 	if i >= ItemType(len(_ItemTypeIndex)-1) {
@@ -32,25 +32,37 @@ func _ItemTypeNoOp() {
 	_ = x[ITEM_WEAPON-(4)]
 	_ = x[ITEM_DISPLAY-(5)]
 	_ = x[ITEM_FURNITURE-(6)]
+	_ = x[ITEM_BEYOND_MATERIAL-(7)]
+	_ = x[ITEM_BEYOND_HALL_FACILITY-(8)]
+	_ = x[ITEM_TPS_WEAPON-(9)]
 }
 
-var _ItemTypeValues = []ItemType{ITEM_NONE, ITEM_VIRTUAL, ITEM_MATERIAL, ITEM_RELIQUARY, ITEM_WEAPON, ITEM_DISPLAY, ITEM_FURNITURE}
+var _ItemTypeValues = []ItemType{ITEM_NONE, ITEM_VIRTUAL, ITEM_MATERIAL, ITEM_RELIQUARY, ITEM_WEAPON, ITEM_DISPLAY, ITEM_FURNITURE, ITEM_BEYOND_MATERIAL, ITEM_BEYOND_HALL_FACILITY, ITEM_TPS_WEAPON}
 
 var _ItemTypeNameToValueMap = map[string]ItemType{
-	_ItemTypeName[0:9]:        ITEM_NONE,
-	_ItemTypeLowerName[0:9]:   ITEM_NONE,
-	_ItemTypeName[9:21]:       ITEM_VIRTUAL,
-	_ItemTypeLowerName[9:21]:  ITEM_VIRTUAL,
-	_ItemTypeName[21:34]:      ITEM_MATERIAL,
-	_ItemTypeLowerName[21:34]: ITEM_MATERIAL,
-	_ItemTypeName[34:48]:      ITEM_RELIQUARY,
-	_ItemTypeLowerName[34:48]: ITEM_RELIQUARY,
-	_ItemTypeName[48:59]:      ITEM_WEAPON,
-	_ItemTypeLowerName[48:59]: ITEM_WEAPON,
-	_ItemTypeName[59:71]:      ITEM_DISPLAY,
-	_ItemTypeLowerName[59:71]: ITEM_DISPLAY,
-	_ItemTypeName[71:85]:      ITEM_FURNITURE,
-	_ItemTypeLowerName[71:85]: ITEM_FURNITURE,
+	_ItemTypeName[0:9]:     ITEM_NONE,
+	_ItemTypeName[9:21]:    ITEM_VIRTUAL,
+	_ItemTypeName[21:34]:   ITEM_MATERIAL,
+	_ItemTypeName[34:48]:   ITEM_RELIQUARY,
+	_ItemTypeName[48:59]:   ITEM_WEAPON,
+	_ItemTypeName[59:71]:   ITEM_DISPLAY,
+	_ItemTypeName[71:85]:   ITEM_FURNITURE,
+	_ItemTypeName[85:105]:  ITEM_BEYOND_MATERIAL,
+	_ItemTypeName[105:130]: ITEM_BEYOND_HALL_FACILITY,
+	_ItemTypeName[130:145]: ITEM_TPS_WEAPON,
+}
+
+var _ItemTypeLowerNameToValueMap = map[string]ItemType{
+	_ItemTypeLowerName[0:9]:     ITEM_NONE,
+	_ItemTypeLowerName[9:21]:    ITEM_VIRTUAL,
+	_ItemTypeLowerName[21:34]:   ITEM_MATERIAL,
+	_ItemTypeLowerName[34:48]:   ITEM_RELIQUARY,
+	_ItemTypeLowerName[48:59]:   ITEM_WEAPON,
+	_ItemTypeLowerName[59:71]:   ITEM_DISPLAY,
+	_ItemTypeLowerName[71:85]:   ITEM_FURNITURE,
+	_ItemTypeLowerName[85:105]:  ITEM_BEYOND_MATERIAL,
+	_ItemTypeLowerName[105:130]: ITEM_BEYOND_HALL_FACILITY,
+	_ItemTypeLowerName[130:145]: ITEM_TPS_WEAPON,
 }
 
 var _ItemTypeNames = []string{
@@ -61,6 +73,9 @@ var _ItemTypeNames = []string{
 	_ItemTypeName[48:59],
 	_ItemTypeName[59:71],
 	_ItemTypeName[71:85],
+	_ItemTypeName[85:105],
+	_ItemTypeName[105:130],
+	_ItemTypeName[130:145],
 }
 
 // ItemTypeString retrieves an enum value from the enum constants string name.
@@ -70,7 +85,7 @@ func ItemTypeString(s string) (ItemType, error) {
 		return val, nil
 	}
 
-	if val, ok := _ItemTypeNameToValueMap[strings.ToLower(s)]; ok {
+	if val, ok := _ItemTypeLowerNameToValueMap[strings.ToLower(s)]; ok {
 		return val, nil
 	}
 	return 0, fmt.Errorf("%s does not belong to ItemType values", s)

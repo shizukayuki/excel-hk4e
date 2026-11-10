@@ -44,33 +44,36 @@ func _WeaponTypeNoOp() {
 var _WeaponTypeValues = []WeaponType{WEAPON_NONE, WEAPON_SWORD_ONE_HAND, WEAPON_CROSSBOW, WEAPON_STAFF, WEAPON_DOUBLE_DAGGER, WEAPON_KATANA, WEAPON_SHURIKEN, WEAPON_STICK, WEAPON_SPEAR, WEAPON_SHIELD_SMALL, WEAPON_CATALYST, WEAPON_CLAYMORE, WEAPON_BOW, WEAPON_POLE}
 
 var _WeaponTypeNameToValueMap = map[string]WeaponType{
-	_WeaponTypeName[0:11]:         WEAPON_NONE,
+	_WeaponTypeName[0:11]:    WEAPON_NONE,
+	_WeaponTypeName[11:32]:   WEAPON_SWORD_ONE_HAND,
+	_WeaponTypeName[32:47]:   WEAPON_CROSSBOW,
+	_WeaponTypeName[47:59]:   WEAPON_STAFF,
+	_WeaponTypeName[59:79]:   WEAPON_DOUBLE_DAGGER,
+	_WeaponTypeName[79:92]:   WEAPON_KATANA,
+	_WeaponTypeName[92:107]:  WEAPON_SHURIKEN,
+	_WeaponTypeName[107:119]: WEAPON_STICK,
+	_WeaponTypeName[119:131]: WEAPON_SPEAR,
+	_WeaponTypeName[131:150]: WEAPON_SHIELD_SMALL,
+	_WeaponTypeName[150:165]: WEAPON_CATALYST,
+	_WeaponTypeName[165:180]: WEAPON_CLAYMORE,
+	_WeaponTypeName[180:190]: WEAPON_BOW,
+	_WeaponTypeName[190:201]: WEAPON_POLE,
+}
+
+var _WeaponTypeLowerNameToValueMap = map[string]WeaponType{
 	_WeaponTypeLowerName[0:11]:    WEAPON_NONE,
-	_WeaponTypeName[11:32]:        WEAPON_SWORD_ONE_HAND,
 	_WeaponTypeLowerName[11:32]:   WEAPON_SWORD_ONE_HAND,
-	_WeaponTypeName[32:47]:        WEAPON_CROSSBOW,
 	_WeaponTypeLowerName[32:47]:   WEAPON_CROSSBOW,
-	_WeaponTypeName[47:59]:        WEAPON_STAFF,
 	_WeaponTypeLowerName[47:59]:   WEAPON_STAFF,
-	_WeaponTypeName[59:79]:        WEAPON_DOUBLE_DAGGER,
 	_WeaponTypeLowerName[59:79]:   WEAPON_DOUBLE_DAGGER,
-	_WeaponTypeName[79:92]:        WEAPON_KATANA,
 	_WeaponTypeLowerName[79:92]:   WEAPON_KATANA,
-	_WeaponTypeName[92:107]:       WEAPON_SHURIKEN,
 	_WeaponTypeLowerName[92:107]:  WEAPON_SHURIKEN,
-	_WeaponTypeName[107:119]:      WEAPON_STICK,
 	_WeaponTypeLowerName[107:119]: WEAPON_STICK,
-	_WeaponTypeName[119:131]:      WEAPON_SPEAR,
 	_WeaponTypeLowerName[119:131]: WEAPON_SPEAR,
-	_WeaponTypeName[131:150]:      WEAPON_SHIELD_SMALL,
 	_WeaponTypeLowerName[131:150]: WEAPON_SHIELD_SMALL,
-	_WeaponTypeName[150:165]:      WEAPON_CATALYST,
 	_WeaponTypeLowerName[150:165]: WEAPON_CATALYST,
-	_WeaponTypeName[165:180]:      WEAPON_CLAYMORE,
 	_WeaponTypeLowerName[165:180]: WEAPON_CLAYMORE,
-	_WeaponTypeName[180:190]:      WEAPON_BOW,
 	_WeaponTypeLowerName[180:190]: WEAPON_BOW,
-	_WeaponTypeName[190:201]:      WEAPON_POLE,
 	_WeaponTypeLowerName[190:201]: WEAPON_POLE,
 }
 
@@ -98,7 +101,7 @@ func WeaponTypeString(s string) (WeaponType, error) {
 		return val, nil
 	}
 
-	if val, ok := _WeaponTypeNameToValueMap[strings.ToLower(s)]; ok {
+	if val, ok := _WeaponTypeLowerNameToValueMap[strings.ToLower(s)]; ok {
 		return val, nil
 	}
 	return 0, fmt.Errorf("%s does not belong to WeaponType values", s)

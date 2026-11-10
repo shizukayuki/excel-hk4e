@@ -8,11 +8,11 @@ import (
 	"strings"
 )
 
-const _EquipTypeName = "EQUIP_NONEEQUIP_BRACEREQUIP_NECKLACEEQUIP_SHOESEQUIP_RINGEQUIP_DRESSEQUIP_WEAPON"
+const _EquipTypeName = "EQUIP_NONEEQUIP_BRACEREQUIP_NECKLACEEQUIP_SHOESEQUIP_RINGEQUIP_DRESSEQUIP_WEAPONEQUIP_TPS_WEAPON"
 
-var _EquipTypeIndex = [...]uint8{0, 10, 22, 36, 47, 57, 68, 80}
+var _EquipTypeIndex = [...]uint8{0, 10, 22, 36, 47, 57, 68, 80, 96}
 
-const _EquipTypeLowerName = "equip_noneequip_bracerequip_necklaceequip_shoesequip_ringequip_dressequip_weapon"
+const _EquipTypeLowerName = "equip_noneequip_bracerequip_necklaceequip_shoesequip_ringequip_dressequip_weaponequip_tps_weapon"
 
 func (i EquipType) String() string {
 	if i >= EquipType(len(_EquipTypeIndex)-1) {
@@ -32,25 +32,31 @@ func _EquipTypeNoOp() {
 	_ = x[EQUIP_RING-(4)]
 	_ = x[EQUIP_DRESS-(5)]
 	_ = x[EQUIP_WEAPON-(6)]
+	_ = x[EQUIP_TPS_WEAPON-(7)]
 }
 
-var _EquipTypeValues = []EquipType{EQUIP_NONE, EQUIP_BRACER, EQUIP_NECKLACE, EQUIP_SHOES, EQUIP_RING, EQUIP_DRESS, EQUIP_WEAPON}
+var _EquipTypeValues = []EquipType{EQUIP_NONE, EQUIP_BRACER, EQUIP_NECKLACE, EQUIP_SHOES, EQUIP_RING, EQUIP_DRESS, EQUIP_WEAPON, EQUIP_TPS_WEAPON}
 
 var _EquipTypeNameToValueMap = map[string]EquipType{
-	_EquipTypeName[0:10]:       EQUIP_NONE,
+	_EquipTypeName[0:10]:  EQUIP_NONE,
+	_EquipTypeName[10:22]: EQUIP_BRACER,
+	_EquipTypeName[22:36]: EQUIP_NECKLACE,
+	_EquipTypeName[36:47]: EQUIP_SHOES,
+	_EquipTypeName[47:57]: EQUIP_RING,
+	_EquipTypeName[57:68]: EQUIP_DRESS,
+	_EquipTypeName[68:80]: EQUIP_WEAPON,
+	_EquipTypeName[80:96]: EQUIP_TPS_WEAPON,
+}
+
+var _EquipTypeLowerNameToValueMap = map[string]EquipType{
 	_EquipTypeLowerName[0:10]:  EQUIP_NONE,
-	_EquipTypeName[10:22]:      EQUIP_BRACER,
 	_EquipTypeLowerName[10:22]: EQUIP_BRACER,
-	_EquipTypeName[22:36]:      EQUIP_NECKLACE,
 	_EquipTypeLowerName[22:36]: EQUIP_NECKLACE,
-	_EquipTypeName[36:47]:      EQUIP_SHOES,
 	_EquipTypeLowerName[36:47]: EQUIP_SHOES,
-	_EquipTypeName[47:57]:      EQUIP_RING,
 	_EquipTypeLowerName[47:57]: EQUIP_RING,
-	_EquipTypeName[57:68]:      EQUIP_DRESS,
 	_EquipTypeLowerName[57:68]: EQUIP_DRESS,
-	_EquipTypeName[68:80]:      EQUIP_WEAPON,
 	_EquipTypeLowerName[68:80]: EQUIP_WEAPON,
+	_EquipTypeLowerName[80:96]: EQUIP_TPS_WEAPON,
 }
 
 var _EquipTypeNames = []string{
@@ -61,6 +67,7 @@ var _EquipTypeNames = []string{
 	_EquipTypeName[47:57],
 	_EquipTypeName[57:68],
 	_EquipTypeName[68:80],
+	_EquipTypeName[80:96],
 }
 
 // EquipTypeString retrieves an enum value from the enum constants string name.
@@ -70,7 +77,7 @@ func EquipTypeString(s string) (EquipType, error) {
 		return val, nil
 	}
 
-	if val, ok := _EquipTypeNameToValueMap[strings.ToLower(s)]; ok {
+	if val, ok := _EquipTypeLowerNameToValueMap[strings.ToLower(s)]; ok {
 		return val, nil
 	}
 	return 0, fmt.Errorf("%s does not belong to EquipType values", s)

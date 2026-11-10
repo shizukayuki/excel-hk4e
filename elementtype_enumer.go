@@ -8,11 +8,11 @@ import (
 	"strings"
 )
 
-const _ElementTypeName = "NoneFireWaterGrassElectricIceFrozenWindRockAntiFireVehicleMuteIceMushroomOverdoseWoodLiquidPhlogistonSolidPhlogistonSolidifyPhlogiston"
+const _ElementTypeName = "NoneFireWaterGrassElectricIceFrozenWindRockAntiFireVehicleMuteIceMushroomOverdoseWoodLiquidPhlogistonSolidPhlogistonSolidifyPhlogistonBrokenIce"
 
-var _ElementTypeIndex = [...]uint8{0, 4, 8, 13, 18, 26, 29, 35, 39, 43, 51, 65, 73, 81, 85, 101, 116, 134}
+var _ElementTypeIndex = [...]uint8{0, 4, 8, 13, 18, 26, 29, 35, 39, 43, 51, 65, 73, 81, 85, 101, 116, 134, 143}
 
-const _ElementTypeLowerName = "nonefirewatergrasselectricicefrozenwindrockantifirevehiclemuteicemushroomoverdosewoodliquidphlogistonsolidphlogistonsolidifyphlogiston"
+const _ElementTypeLowerName = "nonefirewatergrasselectricicefrozenwindrockantifirevehiclemuteicemushroomoverdosewoodliquidphlogistonsolidphlogistonsolidifyphlogistonbrokenice"
 
 func (i ElementType) String() string {
 	if i >= ElementType(len(_ElementTypeIndex)-1) {
@@ -42,45 +42,51 @@ func _ElementTypeNoOp() {
 	_ = x[ElementLiquidPhlogiston-(14)]
 	_ = x[ElementSolidPhlogiston-(15)]
 	_ = x[ElementSolidifyPhlogiston-(16)]
+	_ = x[ElementBrokenIce-(17)]
 }
 
-var _ElementTypeValues = []ElementType{ElementNone, ElementFire, ElementWater, ElementGrass, ElementElectric, ElementIce, ElementFrozen, ElementWind, ElementRock, ElementAntiFire, ElementVehicleMuteIce, ElementMushroom, ElementOverdose, ElementWood, ElementLiquidPhlogiston, ElementSolidPhlogiston, ElementSolidifyPhlogiston}
+var _ElementTypeValues = []ElementType{ElementNone, ElementFire, ElementWater, ElementGrass, ElementElectric, ElementIce, ElementFrozen, ElementWind, ElementRock, ElementAntiFire, ElementVehicleMuteIce, ElementMushroom, ElementOverdose, ElementWood, ElementLiquidPhlogiston, ElementSolidPhlogiston, ElementSolidifyPhlogiston, ElementBrokenIce}
 
 var _ElementTypeNameToValueMap = map[string]ElementType{
-	_ElementTypeName[0:4]:          ElementNone,
+	_ElementTypeName[0:4]:     ElementNone,
+	_ElementTypeName[4:8]:     ElementFire,
+	_ElementTypeName[8:13]:    ElementWater,
+	_ElementTypeName[13:18]:   ElementGrass,
+	_ElementTypeName[18:26]:   ElementElectric,
+	_ElementTypeName[26:29]:   ElementIce,
+	_ElementTypeName[29:35]:   ElementFrozen,
+	_ElementTypeName[35:39]:   ElementWind,
+	_ElementTypeName[39:43]:   ElementRock,
+	_ElementTypeName[43:51]:   ElementAntiFire,
+	_ElementTypeName[51:65]:   ElementVehicleMuteIce,
+	_ElementTypeName[65:73]:   ElementMushroom,
+	_ElementTypeName[73:81]:   ElementOverdose,
+	_ElementTypeName[81:85]:   ElementWood,
+	_ElementTypeName[85:101]:  ElementLiquidPhlogiston,
+	_ElementTypeName[101:116]: ElementSolidPhlogiston,
+	_ElementTypeName[116:134]: ElementSolidifyPhlogiston,
+	_ElementTypeName[134:143]: ElementBrokenIce,
+}
+
+var _ElementTypeLowerNameToValueMap = map[string]ElementType{
 	_ElementTypeLowerName[0:4]:     ElementNone,
-	_ElementTypeName[4:8]:          ElementFire,
 	_ElementTypeLowerName[4:8]:     ElementFire,
-	_ElementTypeName[8:13]:         ElementWater,
 	_ElementTypeLowerName[8:13]:    ElementWater,
-	_ElementTypeName[13:18]:        ElementGrass,
 	_ElementTypeLowerName[13:18]:   ElementGrass,
-	_ElementTypeName[18:26]:        ElementElectric,
 	_ElementTypeLowerName[18:26]:   ElementElectric,
-	_ElementTypeName[26:29]:        ElementIce,
 	_ElementTypeLowerName[26:29]:   ElementIce,
-	_ElementTypeName[29:35]:        ElementFrozen,
 	_ElementTypeLowerName[29:35]:   ElementFrozen,
-	_ElementTypeName[35:39]:        ElementWind,
 	_ElementTypeLowerName[35:39]:   ElementWind,
-	_ElementTypeName[39:43]:        ElementRock,
 	_ElementTypeLowerName[39:43]:   ElementRock,
-	_ElementTypeName[43:51]:        ElementAntiFire,
 	_ElementTypeLowerName[43:51]:   ElementAntiFire,
-	_ElementTypeName[51:65]:        ElementVehicleMuteIce,
 	_ElementTypeLowerName[51:65]:   ElementVehicleMuteIce,
-	_ElementTypeName[65:73]:        ElementMushroom,
 	_ElementTypeLowerName[65:73]:   ElementMushroom,
-	_ElementTypeName[73:81]:        ElementOverdose,
 	_ElementTypeLowerName[73:81]:   ElementOverdose,
-	_ElementTypeName[81:85]:        ElementWood,
 	_ElementTypeLowerName[81:85]:   ElementWood,
-	_ElementTypeName[85:101]:       ElementLiquidPhlogiston,
 	_ElementTypeLowerName[85:101]:  ElementLiquidPhlogiston,
-	_ElementTypeName[101:116]:      ElementSolidPhlogiston,
 	_ElementTypeLowerName[101:116]: ElementSolidPhlogiston,
-	_ElementTypeName[116:134]:      ElementSolidifyPhlogiston,
 	_ElementTypeLowerName[116:134]: ElementSolidifyPhlogiston,
+	_ElementTypeLowerName[134:143]: ElementBrokenIce,
 }
 
 var _ElementTypeNames = []string{
@@ -101,6 +107,7 @@ var _ElementTypeNames = []string{
 	_ElementTypeName[85:101],
 	_ElementTypeName[101:116],
 	_ElementTypeName[116:134],
+	_ElementTypeName[134:143],
 }
 
 // ElementTypeString retrieves an enum value from the enum constants string name.
@@ -110,7 +117,7 @@ func ElementTypeString(s string) (ElementType, error) {
 		return val, nil
 	}
 
-	if val, ok := _ElementTypeNameToValueMap[strings.ToLower(s)]; ok {
+	if val, ok := _ElementTypeLowerNameToValueMap[strings.ToLower(s)]; ok {
 		return val, nil
 	}
 	return 0, fmt.Errorf("%s does not belong to ElementType values", s)
